@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface TimelineItem {
   title: string;
   desc: string;
+  date: string;
   side: "left" | "right";
 }
 
@@ -10,16 +11,19 @@ const timelineData: TimelineItem[] = [
   {
     title: "First Meet",
     desc: "A divine moment where two hearts met by God’s perfect plan.",
+    date: "2 Feb 2025",
     side: "left",
   },
   {
     title: "Engagement",
     desc: "A promise sealed in faith, love, and joyful togetherness.",
+    date: "7 July 2025",
     side: "right",
   },
   {
     title: "Journey to Forever",
     desc: "Walking hand in hand towards a lifetime blessed by God.",
+    date: "5 March 2026",
     side: "left",
   },
 ];
@@ -64,8 +68,18 @@ export default function Story() {
 
               {/* Timeline Icon */}
               <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                <div className="w-10 h-10 bg-white border border-[#d4af37] rounded-full flex items-center justify-center">
-                  <span className="text-[#d4af37]">✿</span>
+                <div className="w-10 h-10 bg-white border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
+                  <motion.span
+                    className="text-[#d4af37] text-lg md:text-2xl"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 4,
+                      ease: "linear",
+                    }}
+                  >
+                    ✦
+                  </motion.span>
                 </div>
               </div>
 
