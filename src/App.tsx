@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import BackgroundMusic from "./components/backgroundMusic/backgroundMusic";
 import Blessing from "./components/blessings/blessing";
@@ -12,6 +12,8 @@ import Invitation from "./components/Invitation/invitation";
 import Landing from "./components/landing/landing";
 import Story from "./components/story/story";
 import Venue from "./components/venue/venue";
+// import WeddingQRCard from "./components/weddingQr/weddingQr";
+import ExperienceGate from "./components/experienceGate/experienceGate";
 
 function App() {
   const homeRef = useRef<HTMLDivElement | null>(null);
@@ -19,10 +21,9 @@ function App() {
   const galleryRef = useRef<HTMLDivElement | null>(null);
   const familyRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
-  // const [loading, setLoading] = useState(true);
-
-  console.log("Body scrollTop:", document.body.scrollTop);
-  console.log("HTML scrollTop:", document.documentElement.scrollTop);
+  const [entered, setEntered] = useState<boolean>(() => {
+    return localStorage.getItem("experienceAccepted") === "true";
+  });
 
   const scrollToSection = (id: string) => {
     const map: Record<string, React.RefObject<HTMLDivElement | null>> = {
@@ -50,61 +51,84 @@ function App() {
     });
   };
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setLoading(false), 3000);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
   useEffect(() => {
     const container = document.querySelector("#root"); // or your scrollable div
     if (container) container.scrollTo({ top: 0 });
   }, []);
 
-  // if (loading) return <LoadingScreen />;
+  if (entered === null) {
+    return null;
+  }
+
   return (
     <div
       className="w-full min-h-screen overflow-y-auto"
       style={{ WebkitOverflowScrolling: "touch" }}
     >
-      {/* <div className="hidden md:block">
-        <FallBack />
-      </div> */}
-      {/* <div className="block md:hidden"> */}
-      <FloatingHearts>
-        <Header onNavigate={scrollToSection} />
-        <BackgroundMusic />{" "}
-        <div
-          className="lg:flex justify-center items-center scroll-mt-20"
-          ref={homeRef}
-        >
-          <Landing />
-        </div>
-        <div className="scroll-mt-20">
-          <Invitation />
-        </div>
-        <div className="scroll-mt-20">
-          <Venue />
-        </div>
-        <div className="scroll-mt-20" ref={storyRef}>
-          <Story />
-        </div>
-        <div className="scroll-mt-20" ref={familyRef}>
-          <Family />
-        </div>
-        <div className="scroll-mt-20" ref={galleryRef}>
-          <Gallery />
-        </div>
-        <div className="scroll-mt-20">
-          <Blessing />
-        </div>
-        <div className="scroll-mt-20">
-          <Countdown />
-        </div>
-        <div className="scroll-mt-20" ref={contactRef}>
-          <Footer />
-        </div>
-      </FloatingHearts>
-      {/* </div> */}
+      {entered ? (
+        <FloatingHearts>
+          <Header onNavigate={scrollToSection} />
+          <BackgroundMusic />
+          <div
+            className="lg:flex justify-center items-center scroll-mt-20"
+            ref={homeRef}
+          >
+            <Landing />
+          </div>
+
+          <div className="scroll-mt-20">
+            <Invitation />
+          </div>
+
+          {/* <button
+            onClick={() => {
+              localStorage.removeItem("experienceAccepted");
+              window.location.reload();
+            }}
+            className="fixed bottom-4 right-4 px-4 py-2 text-xs rounded-full
+             bg-[#d4af37]/80 text-black shadow-md
+             hover:bg-[#d4af37] transition"
+          >
+            Reset Experience
+          </button> */}
+          <div className="scroll-mt-20">
+            <Venue />
+          </div>
+          <div className="scroll-mt-20" ref={storyRef}>
+            <Story />
+          </div>
+          <div className="scroll-mt-20" ref={familyRef}>
+            <Family />
+          </div>
+          <div className="scroll-mt-20" ref={galleryRef}>
+            <Gallery />
+          </div>
+          <div className="scroll-mt-20">
+            <Blessing />
+          </div>
+          <div className="scroll-mt-20">
+            <Countdown />
+          </div>
+          {/* <div
+              className="scroll-mt-20  w-full flex items-center justify-center bg-[#faf7f2] pb-20"
+              ref={contactRef}
+            >
+              <WeddingQRCard qrSrc={"/icons/weddingQR.png"} />
+            </div> */}
+          <div className="scroll-mt-20" ref={contactRef}>
+            <Footer />
+          </div>
+        </FloatingHearts>
+      ) : (
+        <FloatingHearts>
+          <ExperienceGate
+            onEnter={() => {
+              localStorage.setItem("experienceAccepted", "true");
+              setEntered(true);
+            }}
+          />
+        </FloatingHearts>
+      )}
     </div>
   );
 }

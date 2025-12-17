@@ -21,9 +21,9 @@ interface FamilyCardProps {
 
 const FamilyCard: React.FC<FamilyCardProps> = ({ member }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
+    initial={{ opacity: 0, scale: 0.85, y: 20 }}
+    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+    viewport={{ once: false, amount: 0.4 }}
     transition={{ duration: 0.6, ease: "easeOut" }}
     className="text-center"
   >
@@ -48,9 +48,9 @@ const FamilyCard: React.FC<FamilyCardProps> = ({ member }) => (
     </div>
 
     <motion.p
-      initial={{ opacity: 0, y: 6 }}
+      initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ delay: 0.15, duration: 0.4 }}
       className="font-serif text-sm text-gray-500"
     >

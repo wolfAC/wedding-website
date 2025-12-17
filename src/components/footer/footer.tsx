@@ -5,27 +5,10 @@ export default function Footer() {
     <motion.section
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 1 }}
       className="relative min-h-screen flex flex-col items-center justify-center bg-linear-to-b from-[#fffaf0] to-[#faf7f2] px-6 overflow-hidden"
     >
-      {/* Floating decorative hearts */}
-      <motion.span
-        animate={{ y: [0, -10, 0] }}
-        transition={{ repeat: Infinity, duration: 3 }}
-        className="absolute top-10 left-1/4 text-[#d4af37] text-4xl opacity-30"
-      >
-        ❤
-      </motion.span>
-
-      <motion.span
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ repeat: Infinity, duration: 2.5 }}
-        className="absolute bottom-20 right-1/3 text-[#d4af37] text-5xl opacity-20"
-      >
-        ❦
-      </motion.span>
-
       <motion.span
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 3.5 }}
@@ -37,12 +20,19 @@ export default function Footer() {
       <div className="text-center max-w-2xl relative z-10">
         {/* Floral accent */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="flex justify-center mb-8"
+          className="text-[#d4af37] text-7xl mb-6"
+          animate={{
+            scale: [1, 1.15, 1],
+            rotate: [0, 15, -15, 0],
+            y: [0, -10, 0],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         >
-          <span className="text-[#d4af37] text-4xl">❦</span>
+          ❤
         </motion.div>
 
         {/* Thank you text */}
@@ -98,13 +88,13 @@ export default function Footer() {
           transition={{ delay: 1, duration: 0.7 }}
           className="mt-3 text-center font-serif text-gray-900"
         >
-          <div className="text-3xl md:text-4xl font-semibold text-[#d4af37] drop-shadow-lg">
+          <div className="text-3xl md:text-4xl font-semibold text-[#d4af37]">
             Anbu Chezhiyan
           </div>
 
           <div className="my-2 text-[#8b6b3d] text-lg">&</div>
 
-          <div className="text-3xl md:text-4xl font-semibold text-[#d4af37] drop-shadow-lg">
+          <div className="text-3xl md:text-4xl font-semibold text-[#d4af37]">
             Varshini
           </div>
         </motion.h2>

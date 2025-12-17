@@ -6,7 +6,11 @@ export default function Landing() {
         autoPlay
         muted
         playsInline
-        className="absolute top-14 inset-0 w-full h-full object-cover lg:object-[50%_30%] lg:inset-1"
+        controls={false}
+        controlsList="nodownload nofullscreen noremoteplayback"
+        disablePictureInPicture
+        onContextMenu={(e) => e.preventDefault()}
+        className="absolute top-14 inset-0 w-full h-full object-cover lg:object-[50%_30%] lg:inset-1 pointer-events-none"
       />
     </section>
   );

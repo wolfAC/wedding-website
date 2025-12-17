@@ -23,7 +23,10 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     if (!audio) return;
 
     if (isPlaying) {
-      audio.play().catch(() => console.log("Autoplay prevented by browser"));
+      audio.play().catch(() => {
+        console.log("Autoplay prevented by browser");
+        setIsPlaying(false);
+      });
     } else {
       audio.pause();
     }
@@ -41,37 +44,47 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
 
   return (
     <AnimatePresence>
-      {
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{ duration: 0.6 }}
+        className="fixed bottom-4 right-4 z-50"
+      >
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-          className="fixed bottom-4 right-4 z-50"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-2 bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-md"
         >
+          <audio
+            ref={audioRef}
+            src={songs[currentIndex]}
+            onEnded={handleEnded}
+            autoPlay={autoPlay}
+          />
           <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-md"
+            role="button"
+            tabIndex={0}
+            onPointerDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            onClick={() => setIsPlaying(!isPlaying)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setIsPlaying((p) => !p);
+              }
+            }}
+            className="px-3 py-1 rounded-full bg-[#d4af37]/70 text-white font-semibold hover:bg-[#d4af37] transition cursor-pointer select-none"
           >
-            <audio
-              ref={audioRef}
-              src={songs[currentIndex]}
-              onEnded={handleEnded}
-              autoPlay={autoPlay}
-            />
-            <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="px-3 py-1 rounded-full bg-[#d4af37]/70 text-white font-semibold hover:bg-[#d4af37] transition"
-            >
-              {isPlaying ? "Pause" : "Play"}
-            </button>
-            <span className="text-gray-800 text-sm">
-              {currentIndex + 1} / {songs.length}
-            </span>
+            {isPlaying ? "Stop" : "Play"}
           </motion.div>
+          <span className="text-gray-800 text-sm">
+            {currentIndex + 1} / {songs.length}
+          </span>
         </motion.div>
-      }
+      </motion.div>
     </AnimatePresence>
   );
 };

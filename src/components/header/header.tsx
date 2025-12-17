@@ -5,7 +5,7 @@ interface HeaderProps {
   onNavigate: (id: string) => void;
 }
 
-const navItems = ["Home", "Our Story", "Gallery", "Family", "Contact"];
+const navItems = ["Home", "Our Story", "Family", "Gallery", "Contact"];
 
 const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     <header className="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-2">
         {/* Logo */}
-        <img className="w-10 h-10" src="/icons/logo3.png" alt="logo" />
+        <img className="w-10 h-10" src="/icons/logo.png" alt="logo" />
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-8 font-serif text-gray-800">

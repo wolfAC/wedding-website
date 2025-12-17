@@ -1,76 +1,14 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-
-interface FloatingItem {
-  x: number;
-  y: number;
-  id: number;
-  char: string;
-}
+import { motion } from "framer-motion";
 
 export default function Venue() {
-  const [floatingItems, setFloatingItems] = useState<FloatingItem[]>([]);
-  const [counter, setCounter] = useState(0);
-
-  const handleInteraction = (
-    e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>
-  ) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    let x = 0;
-    let y = 0;
-
-    if ("touches" in e) {
-      const touch = e.touches[0];
-      x = touch.clientX - rect.left;
-      y = touch.clientY - rect.top;
-    } else {
-      x = e.clientX - rect.left;
-      y = e.clientY - rect.top;
-    }
-
-    const newItem: FloatingItem = {
-      x,
-      y,
-      id: counter,
-      char: Math.random() > 0.5 ? "❤" : "✿",
-    };
-
-    setFloatingItems((prev) => [...prev, newItem]);
-    setCounter((prev) => prev + 1);
-
-    setTimeout(() => {
-      setFloatingItems((prev) => prev.filter((f) => f.id !== newItem.id));
-    }, 1200);
-  };
-
   return (
     <motion.section
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      onClick={handleInteraction}
-      onTouchStart={handleInteraction}
       className="relative min-h-screen bg-linear-to-b from-[#fffaf0] to-[#faf7f2] py-20 px-6 overflow-hidden cursor-pointer"
     >
-      {/* Click floating hearts / petals */}
-      <AnimatePresence>
-        {floatingItems.map((item) => (
-          <motion.span
-            key={item.id}
-            initial={{ opacity: 1, y: 0, scale: 1 }}
-            animate={{ opacity: 0, y: -80, scale: 1.4 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="absolute text-[#d4af37] text-3xl pointer-events-none"
-            style={{ left: item.x, top: item.y }}
-          >
-            {item.char}
-          </motion.span>
-        ))}
-      </AnimatePresence>
-
       {/* Background floating elements */}
       <motion.span
         animate={{ y: [0, -15, 0] }}
@@ -149,8 +87,8 @@ export default function Venue() {
         >
           <iframe
             title="Sri Lakshmi Narayan Mahal"
-            src="https://www.google.com/maps?q=Sri+Lakshmi+Narayan+Mahal+Sevvapet&z=18&output=embed"
-            className="w-full h-96 border-0 rounded-lg transition-transform duration-500 hover:scale-105"
+            src="https://www.google.com/maps?q=Sri+Lakshmi+Narayan+Mahal+Sevvapet&z=18&t=k&output=embed"
+            className="w-full h-96 border-0 rounded-lg transition-transform duration-500 "
             loading="lazy"
           />
         </motion.div>

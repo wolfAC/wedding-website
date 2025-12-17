@@ -3,9 +3,15 @@ import { motion } from "framer-motion";
 export default function Gallery() {
   return (
     <section className="min-h-screen bg-[#faf7f2] py-20 px-6">
-      <h2 className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-14">
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-14"
+      >
         Photo Gallery
-      </h2>
+      </motion.h2>
 
       <div className="max-w-6xl mx-auto columns-1 sm:columns-2 md:columns-3 gap-6 space-y-6">
         {[
@@ -18,15 +24,15 @@ export default function Gallery() {
         ].map((src, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.3 }}
             transition={{
               duration: 0.7,
               ease: "easeOut",
-              delay: index * 0.08,
+              delay: index * 0.06,
             }}
-            className="relative overflow-hidden rounded-2xl group bg-white/60 backdrop-blur-sm"
+            className="relative overflow-hidden rounded-2xl group bg-white/60 backdrop-blur-sm will-change-transform"
           >
             <img
               src={src}
