@@ -48,6 +48,9 @@ export default function Countdown() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative max-w-4xl w-full text-center bg-white/80 backdrop-blur-sm rounded-3xl p-12"
       >
+        {/* Decorative Background Gradient Circle */}
+        <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-linear-to-tr from-[#d4af37]/30 to-[#d4af37]/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-linear-to-br from-[#d4af37]/20 to-[#d4af37]/5 blur-3xl pointer-events-none" />
         {/* Floral Corners */}
         {[
           "top-4 left-4",
@@ -59,7 +62,7 @@ export default function Countdown() {
             key={i}
             className={`absolute ${pos} text-[#d4af37] text-2xl animate-pulse`}
           >
-            ✿
+            ✦
           </span>
         ))}
 
@@ -115,7 +118,7 @@ export default function Countdown() {
             speed="1"
             loop
             autoplay
-            style={{ width: "300px", height: "300px" }}
+            style={{ width: "250px", height: "250px" }}
           />
         </motion.div>
       </motion.div>

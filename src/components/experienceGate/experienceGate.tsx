@@ -18,7 +18,7 @@ export default function ExperienceGate({ onEnter }: { onEnter: () => void }) {
         // @ts-expect-error fix
         await DeviceOrientationEvent.requestPermission();
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
 

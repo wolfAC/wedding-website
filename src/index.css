@@ -1,10 +1,10 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 html,
 body,
 #root {
   height: 100%;
+  user-select: none;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
   -webkit-overflow-scrolling: touch;

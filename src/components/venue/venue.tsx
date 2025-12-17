@@ -1,3 +1,4 @@
+import { LocationIcon } from "@/assets/assets";
 import { motion } from "framer-motion";
 
 export default function Venue() {
@@ -9,23 +10,6 @@ export default function Venue() {
       transition={{ duration: 0.8 }}
       className="relative min-h-screen bg-linear-to-b from-[#fffaf0] to-[#faf7f2] py-20 px-6 overflow-hidden cursor-pointer"
     >
-      {/* Background floating elements */}
-      <motion.span
-        animate={{ y: [0, -15, 0] }}
-        transition={{ repeat: Infinity, duration: 4 }}
-        className="absolute top-10 left-1/4 text-[#d4af37] text-6xl opacity-20"
-      >
-        ✿
-      </motion.span>
-
-      <motion.span
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ repeat: Infinity, duration: 3 }}
-        className="absolute bottom-20 right-1/3 text-[#d4af37] text-8xl opacity-15"
-      >
-        ❦
-      </motion.span>
-
       {/* Heading */}
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
@@ -36,45 +20,56 @@ export default function Venue() {
         Venue & Location
       </motion.h2>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-4 md:px-0">
         {/* Left: Venue Details */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.8 }}
-          className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-10 shadow-lg"
+          className="relative bg-white/40 backdrop-blur-3xl border border-[#d4af37]/30 rounded-3xl p-12 shadow-2xl hover:shadow-3xl transition-shadow duration-500 max-w-md mx-auto overflow-hidden"
         >
-          <span className="absolute inset-0 flex items-center justify-center text-[120px] text-[#d4af37]/10 pointer-events-none">
-            ✿
-          </span>
+          {/* Decorative Background Circles */}
+          <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-linear-to-tr from-[#d4af37]/20 to-[#d4af37]/5 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-linear-to-br from-[#d4af37]/10 to-[#d4af37]/5 blur-3xl pointer-events-none" />
 
-          <h3 className="font-serif text-2xl text-gray-800 mb-4 relative">
+          {/* Floating Icon half-outside */}
+          <motion.div
+            animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+            className="absolute -top-24 left-1/2 -translate-x-1/2 flex justify-center w-full"
+          >
+            <span className="text-[180px] text-[#d4af37]/20 pointer-events-none">
+              <LocationIcon size={180} />
+            </span>
+          </motion.div>
+
+          {/* Spacer */}
+          <div className="h-25" />
+
+          {/* Title */}
+          <h3 className="font-serif text-3xl md:text-4xl text-gray-800 mb-4 text-center">
             Sri Lakshmi Narayan Mahal
           </h3>
 
-          <p className="text-gray-700 leading-relaxed mb-6 relative">
-            No. 93, C.T.H Road,
-            <br />
-            Next to Sevvapet Police Station,
-            <br />
+          {/* Address */}
+          <p className="text-gray-700 leading-relaxed mb-8 text-center text-sm md:text-base">
+            No. 93, C.T.H Road, <br />
+            Next to Sevvapet Police Station, <br />
             Thiruvallur – 602025
           </p>
 
-          <div className="flex flex-wrap gap-4 relative">
-            <a
+          {/* Buttons */}
+          <div className="flex flex-wrap justify-center gap-4">
+            <motion.a
               href="https://maps.app.goo.gl/67m1XDrmg4t6py9T8"
               target="_blank"
-              className="px-6 py-3 border border-[#d4af37] rounded-full text-[#8b6b3d] hover:bg-[#d4af37]/20 hover:scale-110 transition-transform duration-300"
+              whileHover={{ scale: 1.1, rotate: 2 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="px-6 py-3 rounded-full text-white bg-linear-to-r from-[#d4af37] via-[#e6c670] to-[#d4af37] shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               Open in Google Maps
-            </a>
-
-            <a
-              href="tel:+918825726717"
-              className="px-6 py-3 border border-[#d4af37] rounded-full text-[#8b6b3d] hover:bg-[#d4af37]/20 hover:scale-110 transition-transform duration-300"
-            >
-              Call Organizer
-            </a>
+            </motion.a>
           </div>
         </motion.div>
 
@@ -83,14 +78,16 @@ export default function Venue() {
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="border border-[#d4af37] rounded-2xl overflow-hidden shadow-lg"
+          className="relative border border-[#d4af37]/40 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
         >
           <iframe
             title="Sri Lakshmi Narayan Mahal"
             src="https://www.google.com/maps?q=Sri+Lakshmi+Narayan+Mahal+Sevvapet&z=18&t=k&output=embed"
-            className="w-full h-96 border-0 rounded-lg transition-transform duration-500 "
+            className="w-full h-96 md:h-full border-0 rounded-3xl transition-transform duration-500"
             loading="lazy"
           />
+          {/* Optional floating decorative circle */}
+          <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-linear-to-tr from-[#d4af37]/20 to-[#d4af37]/5 blur-2xl pointer-events-none" />
         </motion.div>
       </div>
     </motion.section>

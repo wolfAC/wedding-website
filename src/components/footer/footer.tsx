@@ -1,6 +1,15 @@
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 export default function Footer() {
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -12,27 +21,33 @@ export default function Footer() {
       <motion.span
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 3.5 }}
-        className="absolute top-1/3 right-1/4 text-[#d4af37] text-3xl opacity-25"
+        className="absolute top-1/3 left-6 text-[#d4af37] text-3xl opacity-25"
       >
-        ❤
+        ✿
+      </motion.span>
+      <motion.span
+        animate={{ y: [0, -8, 0] }}
+        transition={{ repeat: Infinity, duration: 3.5 }}
+        className="absolute top-1/3 right-6 text-[#d4af37] text-3xl opacity-25"
+      >
+        ✿
       </motion.span>
 
       <div className="text-center max-w-2xl relative z-10">
         {/* Floral accent */}
+
         <motion.div
-          className="text-[#d4af37] text-7xl mb-6"
-          animate={{
-            scale: [1, 1.15, 1],
-            rotate: [0, 15, -15, 0],
-            y: [0, -10, 0],
-          }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          variants={itemVariants}
+          className="w-full flex justify-center items-center pt-4"
         >
-          ❤
+          <lottie-player
+            src="/animations/coupleAnimation.json"
+            background="transparent"
+            speed="1"
+            loop
+            autoplay
+            style={{ width: "200px", height: "200px" }}
+          />
         </motion.div>
 
         {/* Thank you text */}
@@ -40,7 +55,7 @@ export default function Footer() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-xl md:text-2xl font-serif text-gray-700 mb-6"
+          className="text-xl md:text-2xl font-serif text-gray-700 pt-10 mb-6"
         >
           Thank you for being part of our special day. Your presence, blessings,
           and love mean the world to us.
@@ -49,9 +64,6 @@ export default function Footer() {
           We are grateful for the laughter, the memories, and the joy you bring
           to our journey together.
           <br />
-          <br />
-          May this day be as beautiful and magical as the love we share, and may
-          you carry happiness with you always.
         </motion.p>
 
         {/* Gold heart */}

@@ -35,13 +35,15 @@ export default function Gallery() {
             className="relative overflow-hidden rounded-2xl group bg-white/60 backdrop-blur-sm will-change-transform"
           >
             <img
+              draggable={false} // Prevent drag & download
+              onContextMenu={(e) => e.preventDefault()}
               src={src}
               alt={`Gallery ${index + 1}`}
               className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
             />
 
             {/* Gold Hover Outline */}
-            <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-[#d4af37] transition duration-700 pointer-events-none" />
+            <div className="absolute inset-0 rounded-2xl border border-[#d4af37] transition duration-700 pointer-events-none" />
           </motion.div>
         ))}
       </div>

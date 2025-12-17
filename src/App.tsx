@@ -31,14 +31,18 @@ function App() {
       "our-story": storyRef,
       gallery: galleryRef,
       family: familyRef,
-      contact: contactRef,
+      "from-the-couple": contactRef,
     };
-
+    console.log(id, "id");
     const element = map[id]?.current;
-    if (!element) return;
+    if (!element) {
+      return;
+    }
 
     const container = document.querySelector("#root");
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     const headerOffset = 80;
     const elementPosition =

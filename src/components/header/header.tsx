@@ -38,17 +38,17 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
           onClick={() => setIsOpen(!isOpen)}
         >
           <span
-            className={`block w-8 h-0.5 bg-gray-800 ${
+            className={`block w-8 h-0.5 bg-[#d4af37] ${
               isOpen ? "rotate-45 translate-y-2" : ""
             }`}
           />
           <span
-            className={`block w-8 h-0.5 bg-gray-800 ${
+            className={`block w-8 h-0.5 bg-[#d4af37] ${
               isOpen ? "opacity-0" : ""
             }`}
           />
           <span
-            className={`block w-8 h-0.5 bg-gray-800 ${
+            className={`block w-8 h-0.5 bg-[#d4af37] ${
               isOpen ? "-rotate-45 -translate-y-2" : ""
             }`}
           />

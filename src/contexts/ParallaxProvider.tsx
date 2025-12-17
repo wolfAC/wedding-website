@@ -22,7 +22,6 @@ export default function ParallaxProvider({ children }: ParallaxProviderProps) {
   });
 
   useEffect(() => {
-    console.log("ParallaxProvider mounted, event listeners attaching...");
     let mounted = true;
 
     // iOS motion permission
@@ -35,7 +34,7 @@ export default function ParallaxProvider({ children }: ParallaxProviderProps) {
         try {
           // @ts-expect-error fix
           const res = await DeviceOrientationEvent.requestPermission();
-          console.log("iOS DeviceOrientation permission response:", res);
+          console.error("iOS DeviceOrientation permission response:", res);
         } catch (err) {
           console.error("iOS DeviceOrientation permission error:", err);
         }
@@ -52,13 +51,6 @@ export default function ParallaxProvider({ children }: ParallaxProviderProps) {
       const newY = e.beta / 35;
       rawX.set(newX);
       rawY.set(newY);
-
-      console.log("DeviceOrientationEvent:", {
-        gamma: e.gamma,
-        beta: e.beta,
-        newX,
-        newY,
-      });
     };
 
     // Device motion (Android + some browsers)
@@ -81,23 +73,16 @@ export default function ParallaxProvider({ children }: ParallaxProviderProps) {
       if (e.rotationRate) {
         newX = (e.rotationRate.gamma ?? 0) / 10;
         newY = (e.rotationRate.beta ?? 0) / 10;
-        console.log("Using rotationRate:", e.rotationRate);
       } else if (e.acceleration) {
         newX = (e.acceleration.x ?? 0) / 2;
         newY = (e.acceleration.y ?? 0) / 2;
-        console.log("Using acceleration:", e.acceleration);
       } else if (e.accelerationIncludingGravity) {
         newX = (e.accelerationIncludingGravity.x ?? 0) / 2;
         newY = (e.accelerationIncludingGravity.y ?? 0) / 2;
-        console.log(
-          "Using accelerationIncludingGravity:",
-          e.accelerationIncludingGravity
-        );
       }
 
       rawX.set(newX);
       rawY.set(newY);
-      console.log("Updated parallax from motion:", { newX, newY });
     };
 
     // Desktop mouse movement
@@ -107,12 +92,6 @@ export default function ParallaxProvider({ children }: ParallaxProviderProps) {
       const newY = (e.clientY / window.innerHeight - 0.5) * 20;
       rawX.set(newX);
       rawY.set(newY);
-      console.log("MouseEvent:", {
-        clientX: e.clientX,
-        clientY: e.clientY,
-        newX,
-        newY,
-      });
     };
 
     // Touch movement fallback (mobile devices)
@@ -124,12 +103,6 @@ export default function ParallaxProvider({ children }: ParallaxProviderProps) {
       const newY = (touch.clientY / window.innerHeight - 0.5) * 20;
       rawX.set(newX);
       rawY.set(newY);
-      console.log("TouchEvent:", {
-        clientX: touch.clientX,
-        clientY: touch.clientY,
-        newX,
-        newY,
-      });
     };
 
     // Add event listeners
