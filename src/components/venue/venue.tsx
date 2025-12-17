@@ -12,10 +12,22 @@ export default function Venue() {
   const [floatingItems, setFloatingItems] = useState<FloatingItem[]>([]);
   const [counter, setCounter] = useState(0);
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleInteraction = (
+    e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>
+  ) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+
+    let x = 0;
+    let y = 0;
+
+    if ("touches" in e) {
+      const touch = e.touches[0];
+      x = touch.clientX - rect.left;
+      y = touch.clientY - rect.top;
+    } else {
+      x = e.clientX - rect.left;
+      y = e.clientY - rect.top;
+    }
 
     const newItem: FloatingItem = {
       x,
@@ -38,8 +50,8 @@ export default function Venue() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      onClick={handleClick}
-      onTouchStart={handleClick as any}
+      onClick={handleInteraction}
+      onTouchStart={handleInteraction}
       className="relative min-h-screen bg-linear-to-b from-[#fffaf0] to-[#faf7f2] py-20 px-6 overflow-hidden cursor-pointer"
     >
       {/* Click floating hearts / petals */}

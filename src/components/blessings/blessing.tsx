@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import type { Variants } from "framer-motion";
 export default function Blessing() {
   const blessings = [
     {
@@ -27,13 +27,20 @@ export default function Blessing() {
     },
   };
 
-  const card = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
+  const card: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 40,
+      scale: 0.95,
+    },
     show: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      },
     },
   };
 

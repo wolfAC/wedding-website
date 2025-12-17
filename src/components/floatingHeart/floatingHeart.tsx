@@ -1,6 +1,6 @@
-import { ReactNode, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import type { ReactNode } from "react";
 interface Heart {
   x: number;
   y: number;
@@ -45,7 +45,7 @@ export default function FloatingHearts({
       onTouchStart={handleTouch}
     >
       {/* Floating Hearts - above everything */}
-      <div className="absolute inset-0 pointer-events-none z-[9999]">
+      <div className="absolute inset-0 pointer-events-none z-9999">
         <AnimatePresence>
           {hearts.map((heart) => (
             <motion.span

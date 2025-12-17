@@ -13,7 +13,6 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [visible, setVisible] = useState(true);
 
   const songs = [
     "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
@@ -42,7 +41,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
 
   return (
     <AnimatePresence>
-      {visible && (
+      {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +71,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
             </span>
           </motion.div>
         </motion.div>
-      )}
+      }
     </AnimatePresence>
   );
 };
