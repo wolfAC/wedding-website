@@ -63,7 +63,7 @@ export default function ExperienceGate({ onEnter }: { onEnter: () => void }) {
             ease: "linear",
           }}
         >
-          ✿
+          ✦
         </motion.span>
       ))}
 
