@@ -22,6 +22,7 @@ export function ParallaxEffect({
         y: yScaled,
         willChange: "transform",
       }}
+      className="w-full h-full"
     >
       {children}
     </motion.div>

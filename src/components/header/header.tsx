@@ -11,10 +11,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-md">
+    <header className="fixed w-full bg-white/10 backdrop-blur-md z-50 shadow-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo */}
-        <div className="text-2xl md:text-3xl font-[cursive] font-semibold text-gray-800 tracking-wide">
+        <div
+          onClick={() => onNavigate("home")}
+          className="text-2xl md:text-2xl font-[cursive] font-semibold text-gray-800 tracking-wide cursor-pointer"
+        >
           <span className="text-[#d4af37]">Anbu</span>{" "}
           <span className="text-gray-800">&</span>{" "}
           <span className="text-[#d4af37]">Varshini</span>
@@ -28,15 +31,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
               <button
                 key={item}
                 onClick={() => onNavigate(id)}
-                className="hover:text-[#d4af37] transition-colors"
+                className="hover:text-[#d4af37] transition-colors cursor-pointer"
               >
                 {item}
               </button>
             );
           })}
         </nav>
-
-        {/* Hamburger */}
 
         <div
           className="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer"
@@ -76,11 +77,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/90 backdrop-blur-md shadow-md"
+            className="md:hidden bg-white/10 backdrop-blur-md shadow-md"
           >
             <ul className="flex flex-col items-center py-6 space-y-4 font-serif">
               {navItems.map((item) => {
-                const id = item.toLowerCase().replace(" ", "-");
+                const id = item.toLowerCase().replaceAll(" ", "-");
                 return (
                   <li key={item}>
                     <button

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 
 type TimeLeft = {
   days: string;
@@ -41,87 +42,89 @@ export default function Countdown() {
 
   return (
     <section className="min-h-screen bg-[#faf7f2] flex items-center justify-center px-6">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative max-w-4xl w-full text-center bg-white/80 backdrop-blur-sm rounded-3xl p-12"
-      >
-        {/* Decorative Background Gradient Circle */}
-        <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-linear-to-tr from-[#d4af37]/30 to-[#d4af37]/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-linear-to-br from-[#d4af37]/20 to-[#d4af37]/5 blur-3xl pointer-events-none" />
-        {/* Floral Corners */}
-        {[
-          "top-4 left-4",
-          "top-4 right-4",
-          "bottom-4 left-4",
-          "bottom-4 right-4",
-        ].map((pos, i) => (
-          <span
-            key={i}
-            className={`absolute ${pos} text-[#d4af37] text-2xl animate-pulse`}
-          >
-            ✦
-          </span>
-        ))}
-
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="font-[cursive] text-3xl md:text-4xl text-[#8b6b3d] mb-10"
-        >
-          Counting down to our forever
-        </motion.h2>
-
-        {/* Countdown */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {units.map((unit, index) => (
-            <motion.div
-              key={unit}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={timeLeft[unit]}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.25 }}
-                  className="text-5xl md:text-6xl font-bold text-gray-800"
-                >
-                  {timeLeft[unit]}
-                </motion.p>
-              </AnimatePresence>
-
-              <p className="uppercase tracking-widest text-sm text-gray-600 mt-2">
-                {unit}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Lottie */}
+      <ParallaxEffect depth={1}>
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="w-full flex justify-center items-center py-10"
+          viewport={{ once: false }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative max-w-4xl w-full text-center bg-white/80 backdrop-blur-sm rounded-3xl p-12"
         >
-          <lottie-player
-            src="/animations/catAnimation.json"
-            background="transparent"
-            speed="1"
-            loop
-            autoplay
-            style={{ width: "250px", height: "250px" }}
-          />
+          {/* Decorative Background Gradient Circle */}
+          <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-linear-to-tr from-[#d4af37]/30 to-[#d4af37]/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-linear-to-br from-[#d4af37]/20 to-[#d4af37]/5 blur-3xl pointer-events-none" />
+          {/* Floral Corners */}
+          {[
+            "top-4 left-4",
+            "top-4 right-4",
+            "bottom-4 left-4",
+            "bottom-4 right-4",
+          ].map((pos, i) => (
+            <span
+              key={i}
+              className={`absolute ${pos} text-[#d4af37] text-2xl animate-pulse`}
+            >
+              ✦
+            </span>
+          ))}
+
+          {/* Heading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="font-[cursive] text-3xl md:text-4xl text-[#8b6b3d] mb-10"
+          >
+            Counting down to our forever
+          </motion.h2>
+
+          {/* Countdown */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {units.map((unit, index) => (
+              <motion.div
+                key={unit}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + index * 0.1 }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={timeLeft[unit]}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.25 }}
+                    className="text-5xl md:text-6xl font-bold text-gray-800"
+                  >
+                    {timeLeft[unit]}
+                  </motion.p>
+                </AnimatePresence>
+
+                <p className="uppercase tracking-widest text-sm text-gray-600 mt-2">
+                  {unit}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Lottie */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="w-full flex justify-center items-center py-10"
+          >
+            <lottie-player
+              src="/animations/catAnimation.json"
+              background="transparent"
+              speed="1"
+              loop
+              autoplay
+              style={{ width: "250px", height: "250px" }}
+            />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </ParallaxEffect>
     </section>
   );
 }

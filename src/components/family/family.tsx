@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 
 /* =======================
    Motion Constants
@@ -31,6 +32,12 @@ const groomFamily: FamilyMember[] = [
     description:
       "A graceful and caring soul whose warmth, patience, and devotion create a loving foundation for the family.",
   },
+  {
+    name: "Mr. Kalai Chezhiyan",
+    role: "Younger Brother of the Groom",
+    description:
+      "A thoughtful and dependable brother whose easygoing nature, encouragement, and quiet strength add warmth to the family.",
+  },
 ];
 
 const brideFamily: FamilyMember[] = [
@@ -46,11 +53,13 @@ const brideFamily: FamilyMember[] = [
     description:
       "A compassionate and nurturing presence, admired for her strength, kindness, and unconditional love.",
   },
+  {
+    name: "Mr. Suriya",
+    role: "Elder Brother of the Bride",
+    description:
+      "A guiding presence and constant support, known for his protectiveness, wisdom, and heartfelt care for his sister and family.",
+  },
 ];
-
-/* =======================
-   Monogram Animations
-======================= */
 
 /* =======================
    Gold Glow
@@ -71,15 +80,17 @@ const GoldGlow = () => (
 );
 
 /* =======================
-   Monogram
-======================= */
-
-/* =======================
    Family Card
 ======================= */
-const FamilyCard = ({ member }: { member: FamilyMember; index: number }) => {
-  const [open, setOpen] = useState(false);
-
+const FamilyCard = ({
+  member,
+  isOpen,
+  onToggle,
+}: {
+  member: FamilyMember;
+  isOpen: boolean;
+  onToggle: () => void;
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -87,35 +98,52 @@ const FamilyCard = ({ member }: { member: FamilyMember; index: number }) => {
       transition={{ duration: 0.6, ease: EASE_PREMIUM }}
       className="text-center"
     >
-      <motion.div
-        onClick={() => setOpen(!open)}
-        whileHover={{ scale: 1.05 }}
-        className="relative w-52 h-52 mx-auto rounded-full bg-white/60 backdrop-blur-xl border border-[#d4af37]/50 flex items-center justify-center shadow-2xl cursor-pointer overflow-hidden"
-      >
-        {/* ✦ at the bottom */}
-        <span className="absolute -bottom-2  text-[#d4af37] text-2xl">✦</span>
-        {/* Name in center */}
-        <GoldGlow />
-        <div className="relative z-10 font-serif px-6">
-          <p className="text-gray-800 text-lg font-semibold">{member.name}</p>
-        </div>
-      </motion.div>
+      <ParallaxEffect depth={1}>
+        <motion.div
+          onClick={onToggle}
+          whileHover={{ scale: 1.05 }}
+          className="relative w-52 h-52 mx-auto rounded-full bg-white/60 backdrop-blur-xl border border-[#d4af37]/50 flex items-center justify-center shadow-2xl cursor-pointer overflow-hidden"
+        >
+          {/* Decorative star */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10">
+            <div className="w-10 h-10 border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
+              <motion.span
+                className="text-[#d4af37] text-lg md:text-2xl"
+                animate={{ rotate: 360 }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "linear",
+                }}
+              >
+                ✦
+              </motion.span>
+            </div>
+          </div>
 
-      <p className="mt-5 text-sm font-serif text-gray-500">{member.role}</p>
+          <GoldGlow />
 
-      <AnimatePresence>
-        {open && (
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.4 }}
-            className="mt-4 max-w-sm mx-auto text-sm text-gray-600 italic bg-white/70 backdrop-blur-lg rounded-2xl px-6 py-4 shadow-inner"
-          >
-            {member.description}
-          </motion.p>
-        )}
-      </AnimatePresence>
+          <div className="relative z-10 font-serif px-6">
+            <p className="text-gray-800 text-lg font-semibold">{member.name}</p>
+          </div>
+        </motion.div>
+
+        <p className="mt-5 text-sm font-serif text-gray-500">{member.role}</p>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.4 }}
+              className="mt-4 max-w-sm mx-auto text-sm text-gray-600 italic bg-white/70 backdrop-blur-lg rounded-2xl px-6 py-4 shadow-inner"
+            >
+              {member.description}
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </ParallaxEffect>
     </motion.div>
   );
 };
@@ -124,6 +152,12 @@ const FamilyCard = ({ member }: { member: FamilyMember; index: number }) => {
    Family Section
 ======================= */
 const Family = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    setActiveIndex((prev) => (prev === index ? null : index));
+  };
+
   return (
     <section className="relative min-h-screen bg-linear-to-b from-[#fffaf0] to-[#f7f4ee] py-28 px-6 overflow-hidden">
       <div className="absolute inset-0 bg-[#d4af37]/10 blur-3xl rounded-full pointer-events-none" />
@@ -133,25 +167,40 @@ const Family = () => {
       </h2>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
+        {/* Groom Family */}
         <div>
           <h3 className="text-center font-serif text-2xl mb-14">
             Groom’s Family
           </h3>
           <div className="flex flex-col items-center gap-20">
-            {groomFamily.map((m, i) => (
-              <FamilyCard key={m.name} member={m} index={i} />
+            {groomFamily.map((member, index) => (
+              <FamilyCard
+                key={member.name}
+                member={member}
+                isOpen={activeIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
             ))}
           </div>
         </div>
 
+        {/* Bride Family */}
         <div>
           <h3 className="text-center font-serif text-2xl mb-14">
             Bride’s Family
           </h3>
           <div className="flex flex-col items-center gap-20">
-            {brideFamily.map((m, i) => (
-              <FamilyCard key={m.name} member={m} index={i + 2} />
-            ))}
+            {brideFamily.map((member, index) => {
+              const globalIndex = index + groomFamily.length;
+              return (
+                <FamilyCard
+                  key={member.name}
+                  member={member}
+                  isOpen={activeIndex === globalIndex}
+                  onToggle={() => handleToggle(globalIndex)}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

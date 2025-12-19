@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 
 export default function Footer() {
   const itemVariants: Variants = {
@@ -35,20 +36,21 @@ export default function Footer() {
 
       <div className="text-center max-w-2xl relative z-10">
         {/* Floral accent */}
-
-        <motion.div
-          variants={itemVariants}
-          className="w-full flex justify-center items-center pt-4"
-        >
-          <lottie-player
-            src="/animations/coupleAnimation.json"
-            background="transparent"
-            speed="1"
-            loop
-            autoplay
-            style={{ width: "200px", height: "200px" }}
-          />
-        </motion.div>
+        <ParallaxEffect depth={1}>
+          <motion.div
+            variants={itemVariants}
+            className="w-full flex justify-center items-center pt-4"
+          >
+            <lottie-player
+              src="/animations/coupleAnimation.json"
+              background="transparent"
+              speed="1"
+              loop
+              autoplay
+              style={{ width: "200px", height: "200px" }}
+            />
+          </motion.div>
+        </ParallaxEffect>
 
         {/* Thank you text */}
         <motion.p

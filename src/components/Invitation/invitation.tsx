@@ -72,6 +72,21 @@ export default function Invitation() {
             <span className="w-12 h-px bg-linear-to-r from-[#d4af37] via-[#e6c670] to-[#d4af37]" />
           </motion.div>
 
+          {/* Lottie */}
+          <motion.div
+            variants={itemVariants}
+            className="w-full flex justify-center items-center"
+          >
+            <lottie-player
+              src="/animations/loveHearts.json"
+              background="transparent"
+              speed="2"
+              loop
+              autoplay
+              style={{ width: "300px", height: "300px" }}
+            />
+          </motion.div>
+
           {/* Title */}
           <motion.h1
             variants={itemVariants}
@@ -99,21 +114,6 @@ export default function Invitation() {
               Varshini
             </div>
           </motion.h2>
-
-          {/* Lottie */}
-          <motion.div
-            variants={itemVariants}
-            className="w-full flex justify-center items-center pt-6"
-          >
-            <lottie-player
-              src="/animations/loveHearts.json"
-              background="transparent"
-              speed="1"
-              loop
-              autoplay
-              style={{ width: "320px", height: "320px" }}
-            />
-          </motion.div>
         </motion.div>
       </ParallaxEffect>
     </section>

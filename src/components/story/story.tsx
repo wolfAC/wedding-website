@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 
 interface TimelineItem {
   title: string;
@@ -10,19 +11,43 @@ interface TimelineItem {
 const timelineData: TimelineItem[] = [
   {
     title: "First Meet",
-    desc: "A divine moment where two hearts met by God’s perfect plan.",
+    desc: "A simple introduction that quietly marked the beginning of something meaningful, guided by God’s plan.",
     date: "2 Feb 2025",
     side: "left",
   },
   {
+    title: "First Conversation",
+    desc: "An honest and comfortable conversation that brought clarity, peace, and mutual respect.",
+    date: "15 Feb 2025",
+    side: "right",
+  },
+  {
+    title: "Families Connected",
+    desc: "Two families met in faith and understanding, laying the foundation for a shared future.",
+    date: "10 Mar 2025",
+    side: "left",
+  },
+  {
+    title: "Growing in Understanding",
+    desc: "Time spent in conversations and prayer strengthened trust, values, and companionship.",
+    date: "18 Apr 2025",
+    side: "right",
+  },
+  {
     title: "Engagement",
-    desc: "A promise sealed in faith, love, and joyful togetherness.",
+    desc: "A promise made with blessings, faith, and the joy of togetherness.",
     date: "7 July 2025",
+    side: "left",
+  },
+  {
+    title: "Preparing Together",
+    desc: "Planning life ahead with patience, support, and gratitude for every shared moment.",
+    date: "22 Nov 2025",
     side: "right",
   },
   {
     title: "Journey to Forever",
-    desc: "Walking hand in hand towards a lifetime blessed by God.",
+    desc: "Stepping into marriage with love, faith, and a shared commitment to walk together always.",
     date: "5 March 2026",
     side: "left",
   },
@@ -41,64 +66,66 @@ export default function Story() {
 
         <AnimatePresence>
           {timelineData.map((item, idx) => (
-            <motion.div
-              key={idx}
-              className="relative flex items-center mb-20"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              viewport={{ once: false, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: idx * 0.2 }}
-            >
-              {/* Left Content */}
-              <div
-                className={`w-1/2 ${
-                  item.side === "left" ? "pr-12 text-right" : "pr-12"
-                }`}
+            <ParallaxEffect depth={1}>
+              <motion.div
+                key={idx}
+                className="relative flex items-center mb-20"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                viewport={{ once: false, amount: 0.3 }}
+                transition={{ duration: 0.7, delay: idx * 0.2 }}
               >
-                {item.side === "left" && (
-                  <>
-                    <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-700">{item.desc}</p>
-                  </>
-                )}
-              </div>
-
-              {/* Timeline Icon */}
-              <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                <div className="w-10 h-10 bg-white border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
-                  <motion.span
-                    className="text-[#d4af37] text-lg md:text-2xl"
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 4,
-                      ease: "linear",
-                    }}
-                  >
-                    ✦
-                  </motion.span>
+                {/* Left Content */}
+                <div
+                  className={`w-1/2 ${
+                    item.side === "left" ? "pr-12 text-right" : "pr-12"
+                  }`}
+                >
+                  {item.side === "left" && (
+                    <>
+                      <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-700">{item.desc}</p>
+                    </>
+                  )}
                 </div>
-              </div>
 
-              {/* Right Content */}
-              <div
-                className={`w-1/2 ${
-                  item.side === "right" ? "pl-12 text-left" : "pl-12"
-                }`}
-              >
-                {item.side === "right" && (
-                  <>
-                    <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-700">{item.desc}</p>
-                  </>
-                )}
-              </div>
-            </motion.div>
+                {/* Timeline Icon */}
+                <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                  <div className="w-10 h-10 bg-white border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
+                    <motion.span
+                      className="text-[#d4af37] text-lg md:text-2xl"
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 4,
+                        ease: "linear",
+                      }}
+                    >
+                      ✦
+                    </motion.span>
+                  </div>
+                </div>
+
+                {/* Right Content */}
+                <div
+                  className={`w-1/2 ${
+                    item.side === "right" ? "pl-12 text-left" : "pl-12"
+                  }`}
+                >
+                  {item.side === "right" && (
+                    <>
+                      <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-700">{item.desc}</p>
+                    </>
+                  )}
+                </div>
+              </motion.div>
+            </ParallaxEffect>
           ))}
         </AnimatePresence>
       </div>

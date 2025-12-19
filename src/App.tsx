@@ -33,20 +33,26 @@ function App() {
       family: familyRef,
       "from-the-couple": contactRef,
     };
-    console.log(id, "id");
+
     const element = map[id]?.current;
+
+    console.log(element, "element");
+
     if (!element) {
       return;
     }
 
     const container = document.querySelector("#root");
+
     if (!container) {
       return;
     }
 
     const headerOffset = 80;
+
     const elementPosition =
       element.getBoundingClientRect().top + container.scrollTop;
+
     const offsetPosition = elementPosition - headerOffset;
 
     container.scrollTo({
@@ -95,6 +101,7 @@ function App() {
           >
             Reset Experience
           </button> */}
+
           <div className="scroll-mt-20">
             <Venue />
           </div>
