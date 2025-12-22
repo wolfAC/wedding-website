@@ -96,7 +96,7 @@ export default function Story() {
                 <div className="absolute left-1/2 -translate-x-1/2 z-10">
                   <div className="w-10 h-10 bg-white border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
                     <motion.span
-                      className="text-[#d4af37] text-lg md:text-2xl"
+                      className="text-[#d4af37] text-lg md:text-2xl notranslate"
                       animate={{ rotate: 360 }}
                       transition={{
                         repeat: Infinity,

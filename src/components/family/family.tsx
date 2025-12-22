@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
+import { useLanguageContext } from "@/contexts/language/context";
 
 /* =======================
    Motion Constants
@@ -15,51 +16,6 @@ type FamilyMember = {
   role: string;
   description: string;
 };
-
-/* =======================
-   Data
-======================= */
-const groomFamily: FamilyMember[] = [
-  {
-    name: "Mr. Malar Chezhiyan",
-    role: "Father of Groom",
-    description:
-      "A humble and respected gentleman, admired for his wisdom, integrity, and lifelong commitment to family values.",
-  },
-  {
-    name: "Mrs. Kalpana",
-    role: "Mother of Groom",
-    description:
-      "A graceful and caring soul whose warmth, patience, and devotion create a loving foundation for the family.",
-  },
-  {
-    name: "Mr. Kalai Chezhiyan",
-    role: "Younger Brother of the Groom",
-    description:
-      "A thoughtful and dependable brother whose easygoing nature, encouragement, and quiet strength add warmth to the family.",
-  },
-];
-
-const brideFamily: FamilyMember[] = [
-  {
-    name: "Mr. Ranganathan",
-    role: "Father of Bride",
-    description:
-      "A dignified personality known for his discipline, guidance, and deep sense of responsibility.",
-  },
-  {
-    name: "Mrs. Durgavathi",
-    role: "Mother of Bride",
-    description:
-      "A compassionate and nurturing presence, admired for her strength, kindness, and unconditional love.",
-  },
-  {
-    name: "Mr. Suriya",
-    role: "Elder Brother of the Bride",
-    description:
-      "A guiding presence and constant support, known for his protectiveness, wisdom, and heartfelt care for his sister and family.",
-  },
-];
 
 /* =======================
    Gold Glow
@@ -108,7 +64,7 @@ const FamilyCard = ({
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10">
             <div className="w-10 h-10 border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
               <motion.span
-                className="text-[#d4af37] text-lg md:text-2xl"
+                className="text-[#d4af37] text-lg md:text-2xl notranslate"
                 animate={{ rotate: 360 }}
                 transition={{
                   repeat: Infinity,
@@ -152,6 +108,8 @@ const FamilyCard = ({
    Family Section
 ======================= */
 const Family = () => {
+  const { translations } = useLanguageContext();
+
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
@@ -163,17 +121,17 @@ const Family = () => {
       <div className="absolute inset-0 bg-[#d4af37]/10 blur-3xl rounded-full pointer-events-none" />
 
       <h2 className="text-center text-4xl md:text-5xl font-serif mb-24 text-gray-800">
-        Our Family
+        {translations?.family?.title}
       </h2>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
         {/* Groom Family */}
         <div>
           <h3 className="text-center font-serif text-2xl mb-14">
-            Groom’s Family
+            {translations?.family?.groom?.title}
           </h3>
           <div className="flex flex-col items-center gap-20">
-            {groomFamily.map((member, index) => (
+            {translations?.family?.groom?.members?.map((member, index) => (
               <FamilyCard
                 key={member.name}
                 member={member}
@@ -187,11 +145,12 @@ const Family = () => {
         {/* Bride Family */}
         <div>
           <h3 className="text-center font-serif text-2xl mb-14">
-            Bride’s Family
+            {translations?.family?.bride?.title}
           </h3>
           <div className="flex flex-col items-center gap-20">
-            {brideFamily.map((member, index) => {
-              const globalIndex = index + groomFamily.length;
+            {translations?.family?.bride?.members?.map((member, index) => {
+              const globalIndex =
+                index + translations?.family?.groom?.members.length;
               return (
                 <FamilyCard
                   key={member.name}

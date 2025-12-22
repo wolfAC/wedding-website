@@ -1,0 +1,98 @@
+{
+  "global": {
+    "language": "English",
+    "music": "Play Background Music",
+    "groomName": "Anbu Chezhiyan",
+    "brideName": "Varshini"
+  },
+  "headers": {
+    "navItems": [
+      { "title": "Home", "key": "home" },
+      { "title": "Our Story", "key": "our-story" },
+      { "title": "Family", "key": "family" },
+      { "title": "Gallery", "key": "gallery" },
+      { "title": "From The Couple", "key": "from-the-couple" }
+    ]
+  },
+  "experienceGate": {
+    "title": "Welcome to Our Wedding",
+    "music": "Play Background Music",
+    "description": "For the best experience, please allow gentle motion effects and background music to make your visit more immersive and memorable.",
+    "enter": "Enter Experience ✨",
+    "entering": "Entering...",
+    "footer": "You can disable music anytime"
+  },
+  "invitation": {
+    "verse": "And now these three remain: faith, hope and love. But the greatest of these is love.",
+    "chapter": "1 Cor 13:13",
+    "invite": " We warmly invite you to celebrate"
+  },
+  "gallery": { "title": "Photo Gallery" },
+  "family": {
+    "title": "Our Family",
+    "groom": {
+      "title": "Groom’s Family",
+      "members": [
+        {
+          "name": "Mr. Malar Chezhiyan",
+          "role": "Father of Groom",
+          "description": "A humble and respected gentleman, admired for his wisdom, integrity, and lifelong commitment to family values."
+        },
+        {
+          "name": "Mrs. Kalpana",
+          "role": "Mother of Groom",
+          "description": "A graceful and caring soul whose warmth, patience, and devotion create a loving foundation for the family."
+        },
+        {
+          "name": "Mr. Kalai Chezhiyan",
+          "role": "Younger Brother of the Groom",
+          "description": "A thoughtful and dependable brother whose easygoing nature, encouragement, and quiet strength add warmth to the family."
+        }
+      ]
+    },
+    "bride": {
+      "title": "Bride’s Family",
+      "members": [
+        {
+          "name": "Mr. Ranganathan",
+          "role": "Father of Bride",
+          "description": "A dignified personality known for his discipline, guidance, and deep sense of responsibility."
+        },
+        {
+          "name": "Mrs. Durgavathi",
+          "role": "Mother of Bride",
+          "description": "A compassionate and nurturing presence, admired for her strength, kindness, and unconditional love."
+        },
+        {
+          "name": "Mr. Suriya",
+          "role": "Elder Brother of the Bride",
+          "description": "A guiding presence and constant support, known for his protectiveness, wisdom, and heartfelt care for his sister and family."
+        }
+      ]
+    }
+  },
+  "venue": {
+    "title": "Venue & Location",
+    "place": "Sri Lakshmi Narayan Mahal",
+    "address1": "No. 93, C.T.H Road",
+    "address2": "Next to Sevvapet Police Station",
+    "address3": "Thiruvallur",
+    "mapLocationLink": "https://maps.app.goo.gl/67m1XDrmg4t6py9T8",
+    "iFrameMapLocationLink": "https://www.google.com/maps?q=Sri+Lakshmi+Narayan+Mahal+Sevvapet&z=18&t=k&output=embed",
+    "openGMaps": " Open in Google Maps"
+  },
+  "countDown": {
+    "title": "Counting down to our forever",
+    "units": [
+      { "title": "days", "key": "days" },
+      { "title": "hours", "key": "hours" },
+      { "title": "minutes", "key": "minutes" },
+      { "title": "seconds", "key": "seconds" }
+    ]
+  },
+  "footer": {
+    "para1": "Thank you for being part of our special day. Your presence, blessings,and love mean the world to us.",
+    "para2": "We are grateful for the laughter, the memories, and the joy you bring to our journey together.",
+    "withLove": "With love"
+  }
+}

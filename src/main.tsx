@@ -2,12 +2,15 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import ParallaxProvider from "./contexts/ParallaxProvider.tsx";
+import { LanguageProvider } from "./contexts/language/provider.tsx";
+import ParallaxProvider from "./contexts/parallax/provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ParallaxProvider>
-      <App />
-    </ParallaxProvider>
+    <LanguageProvider>
+      <ParallaxProvider>
+        <App />
+      </ParallaxProvider>
+    </LanguageProvider>
   </StrictMode>
 );

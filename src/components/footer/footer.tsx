@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
+import { useLanguageContext } from "@/contexts/language/context";
 
 export default function Footer() {
+  const { translations } = useLanguageContext();
+
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -22,14 +25,14 @@ export default function Footer() {
       <motion.span
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 3.5 }}
-        className="absolute top-1/3 left-6 text-[#d4af37] text-3xl opacity-25"
+        className="absolute top-1/3 left-6 text-[#d4af37] text-3xl opacity-25 notranslate"
       >
         ✿
       </motion.span>
       <motion.span
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 3.5 }}
-        className="absolute top-1/3 right-6 text-[#d4af37] text-3xl opacity-25"
+        className="absolute top-1/3 right-6 text-[#d4af37] text-3xl opacity-25 notranslate"
       >
         ✿
       </motion.span>
@@ -59,12 +62,10 @@ export default function Footer() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="text-xl md:text-2xl font-serif text-gray-700 pt-10 mb-6"
         >
-          Thank you for being part of our special day. Your presence, blessings,
-          and love mean the world to us.
+          {translations?.footer?.para1}
           <br />
           <br />
-          We are grateful for the laughter, the memories, and the joy you bring
-          to our journey together.
+          {translations?.footer?.para2}
           <br />
         </motion.p>
 
@@ -74,7 +75,9 @@ export default function Footer() {
           transition={{ repeat: Infinity, duration: 2 }}
           className="flex justify-center mb-6"
         >
-          <span className="text-[#d4af37] text-3xl">❤</span>
+          <span className="text-[#d4af37] text-3xl notranslate">
+            &#10084;&#65038;
+          </span>
         </motion.div>
 
         {/* Divider */}
@@ -92,7 +95,7 @@ export default function Footer() {
           transition={{ delay: 0.85, duration: 0.6 }}
           className="font-[cursive] text-2xl md:text-3xl text-[#8b6b3d] mb-2"
         >
-          With love,
+          {translations?.footer?.withLove},
         </motion.p>
 
         {/* Names */}
@@ -103,13 +106,13 @@ export default function Footer() {
           className="mt-3 text-center font-serif text-gray-900"
         >
           <div className="text-3xl md:text-4xl font-semibold text-[#d4af37]">
-            Anbu Chezhiyan
+            {translations?.global?.groomName}
           </div>
 
           <div className="my-2 text-[#8b6b3d] text-lg">&</div>
 
           <div className="text-3xl md:text-4xl font-semibold text-[#d4af37]">
-            Varshini
+            {translations?.global?.brideName}
           </div>
         </motion.h2>
       </div>

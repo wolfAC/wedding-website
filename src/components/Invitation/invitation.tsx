@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 import type { Variants } from "framer-motion";
+import { useLanguageContext } from "@/contexts/language/context";
 
 const containerVariants: Variants = {
   hidden: {
@@ -28,6 +29,8 @@ const itemVariants: Variants = {
 };
 
 export default function Invitation() {
+  const { translations } = useLanguageContext();
+
   return (
     <section className="min-h-screen flex items-center justify-center px-6 bg-[#faf7f2]">
       <ParallaxEffect depth={1}>
@@ -47,10 +50,9 @@ export default function Invitation() {
             variants={itemVariants}
             className="text-gray-700 italic text-sm md:text-base leading-relaxed font-light"
           >
-            “And now these three remain: faith, hope and love. But the greatest
-            of these is love.”
+            “{translations?.invitation?.verse}”
             <span className="block mt-2 font-medium text-[#8b6b3d] text-[13px] md:text-sm text-right">
-              — 1 Cor 13:13
+              — {translations?.invitation?.chapter}
             </span>
           </motion.p>
 
@@ -59,7 +61,7 @@ export default function Invitation() {
             variants={itemVariants}
             className="mt-6 text-xs md:text-sm uppercase tracking-widest text-gray-600 letter-spacing-wider"
           >
-            We warmly invite you to celebrate
+            {translations?.invitation.invite}
           </motion.p>
 
           {/* Divider */}
@@ -68,7 +70,9 @@ export default function Invitation() {
             className="flex items-center justify-center gap-3 my-4"
           >
             <span className="w-12 h-px bg-linear-to-r from-[#d4af37] via-[#e6c670] to-[#d4af37]" />
-            <span className="text-[#d4af37] text-lg md:text-xl">✿</span>
+            <span className="text-[#d4af37] text-lg md:text-xl notranslate">
+              ✿
+            </span>
             <span className="w-12 h-px bg-linear-to-r from-[#d4af37] via-[#e6c670] to-[#d4af37]" />
           </motion.div>
 
@@ -103,7 +107,7 @@ export default function Invitation() {
             className="mt-4 text-center font-serif text-gray-900"
           >
             <div className="text-4xl md:text-5xl font-extrabold text-[#d4af37] tracking-tight">
-              Anbu Chezhiyan
+              {translations?.global?.groomName}
             </div>
 
             <div className="my-2 text-[#8b6b3d] text-lg md:text-xl font-medium">
@@ -111,7 +115,7 @@ export default function Invitation() {
             </div>
 
             <div className="text-4xl md:text-5xl font-extrabold text-[#d4af37] tracking-tight">
-              Varshini
+              {translations?.global?.brideName}
             </div>
           </motion.h2>
         </motion.div>

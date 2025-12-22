@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
+import { useLanguageContext } from "@/contexts/language/context";
 
 export default function Gallery() {
+  const { translations } = useLanguageContext();
+
   return (
     <section className="min-h-screen bg-[#faf7f2] py-20 px-6">
       <motion.h2
@@ -11,7 +14,7 @@ export default function Gallery() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-14"
       >
-        Photo Gallery
+        {translations?.gallery?.title}
       </motion.h2>
 
       <div className="max-w-6xl mx-auto columns-1 sm:columns-2 md:columns-3 gap-6 space-y-6">

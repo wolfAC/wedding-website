@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
+import { useLanguageContext } from "@/contexts/language/context";
 
 type TimeLeft = {
   days: string;
@@ -9,17 +10,15 @@ type TimeLeft = {
   seconds: string;
 };
 
-type Unit = keyof TimeLeft;
-
 export default function Countdown() {
+  const { translations } = useLanguageContext();
+
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: "00",
     hours: "00",
     minutes: "00",
     seconds: "00",
   });
-
-  const units: Unit[] = ["days", "hours", "minutes", "seconds"];
 
   useEffect(() => {
     const weddingDate = new Date("2026-03-05T10:00:00");
@@ -41,8 +40,8 @@ export default function Countdown() {
   }, []);
 
   return (
-    <section className="min-h-screen bg-[#faf7f2] flex items-center justify-center px-6">
-      <ParallaxEffect depth={1}>
+    <ParallaxEffect depth={1}>
+      <section className="min-h-screen bg-[#faf7f2] flex items-center justify-center px-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -62,7 +61,7 @@ export default function Countdown() {
           ].map((pos, i) => (
             <span
               key={i}
-              className={`absolute ${pos} text-[#d4af37] text-2xl animate-pulse`}
+              className={`absolute ${pos} text-[#d4af37] text-2xl animate-pulse notranslate`}
             >
               ✦
             </span>
@@ -75,36 +74,39 @@ export default function Countdown() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="font-[cursive] text-3xl md:text-4xl text-[#8b6b3d] mb-10"
           >
-            Counting down to our forever
+            {translations?.countDown?.title}
           </motion.h2>
 
           {/* Countdown */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {units.map((unit, index) => (
-              <motion.div
-                key={unit}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={timeLeft[unit]}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-5xl md:text-6xl font-bold text-gray-800"
-                  >
-                    {timeLeft[unit]}
-                  </motion.p>
-                </AnimatePresence>
+            {translations?.countDown?.units?.map((unit, index) => {
+              const key = unit.key as keyof TimeLeft;
+              return (
+                <motion.div
+                  key={key}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={timeLeft?.[key]}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.25 }}
+                      className="text-5xl md:text-6xl font-bold text-gray-800 notranslate"
+                    >
+                      {timeLeft?.[key]}
+                    </motion.p>
+                  </AnimatePresence>
 
-                <p className="uppercase tracking-widest text-sm text-gray-600 mt-2">
-                  {unit}
-                </p>
-              </motion.div>
-            ))}
+                  <p className="uppercase tracking-widest text-sm text-gray-600 mt-2">
+                    {unit.title}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Lottie */}
@@ -124,7 +126,7 @@ export default function Countdown() {
             />
           </motion.div>
         </motion.div>
-      </ParallaxEffect>
-    </section>
+      </section>
+    </ParallaxEffect>
   );
 }

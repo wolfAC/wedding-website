@@ -40,7 +40,7 @@ export default function FloatingHearts({
 
   return (
     <div
-      className="relative w-full min-h-screen overflow-hidden"
+      className="relative w-full h-full overflow-hidden"
       onClick={handleClick}
       onTouchStart={handleTouch}
     >
@@ -54,10 +54,10 @@ export default function FloatingHearts({
               animate={{ opacity: 1, scale: 1, y: -100 }}
               exit={{ opacity: 0, scale: 0.5 }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className="absolute text-[#d4af37] text-3xl"
+              className="absolute text-[#d4af37] text-3xl notranslate"
               style={{ left: heart.x, top: heart.y }}
             >
-              ❤
+              &#10084;&#65038;
             </motion.span>
           ))}
         </AnimatePresence>

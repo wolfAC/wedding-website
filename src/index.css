@@ -4,6 +4,7 @@ html,
 body,
 #root {
   height: 100%;
+  background-color: #faf7f2;
   user-select: none;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */

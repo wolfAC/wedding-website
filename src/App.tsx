@@ -16,6 +16,7 @@ import Venue from "./components/venue/venue";
 import ExperienceGate from "./components/experienceGate/experienceGate";
 
 function App() {
+  const headerRef = useRef<HTMLDivElement | null>(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const storyRef = useRef<HTMLDivElement | null>(null);
   const galleryRef = useRef<HTMLDivElement | null>(null);
@@ -71,26 +72,77 @@ function App() {
   }
 
   return (
-    <div
-      className="w-full min-h-screen overflow-y-auto"
-      style={{ WebkitOverflowScrolling: "touch" }}
-    >
-      {entered ? (
-        <FloatingHearts>
-          <Header onNavigate={scrollToSection} />
-          <BackgroundMusic />
-          <div
-            className="lg:flex justify-center items-center scroll-mt-20"
-            ref={homeRef}
-          >
-            <Landing />
-          </div>
+    <div className="relative">
+      <div ref={headerRef}>
+        <Header onNavigate={scrollToSection} />
+      </div>
+      <BackgroundMusic />
+      <div
+        className="w-full min-h-screen overflow-y-auto"
+        style={{
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        {entered ? (
+          <FloatingHearts>
+            <div
+              className="h-full w-full lg:flex bg-[#faf7f2] justify-center items-center scroll-mt-20"
+              ref={homeRef}
+            >
+              <Landing />
+            </div>
 
-          <div className="scroll-mt-20">
-            <Invitation />
-          </div>
+            <div className="scroll-mt-20">
+              <Invitation />
+            </div>
 
-          {/* <button
+            <div className="scroll-mt-20">
+              <Venue />
+            </div>
+            <div className="scroll-mt-20" ref={storyRef}>
+              <Story />
+            </div>
+            <div className="scroll-mt-20" ref={familyRef}>
+              <Family />
+            </div>
+            <div className="scroll-mt-20" ref={galleryRef}>
+              <Gallery />
+            </div>
+            <div className="scroll-mt-20">
+              <Blessing />
+            </div>
+            <div className="scroll-mt-20">
+              <Countdown />
+            </div>
+            {/* <div
+              className="scroll-mt-20  w-full flex items-center justify-center bg-[#faf7f2] pb-20"
+              ref={contactRef}
+            >
+              <WeddingQRCard qrSrc={"/icons/weddingQR.png"} />
+            </div> */}
+            <div className="scroll-mt-20" ref={contactRef}>
+              <Footer />
+            </div>
+          </FloatingHearts>
+        ) : (
+          <FloatingHearts>
+            <ExperienceGate
+              onEnter={() => {
+                localStorage.setItem("experienceAccepted", "true");
+                setEntered(true);
+              }}
+            />
+          </FloatingHearts>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+{
+  /* <button
             onClick={() => {
               localStorage.removeItem("experienceAccepted");
               window.location.reload();
@@ -100,48 +152,5 @@ function App() {
              hover:bg-[#d4af37] transition"
           >
             Reset Experience
-          </button> */}
-
-          <div className="scroll-mt-20">
-            <Venue />
-          </div>
-          <div className="scroll-mt-20" ref={storyRef}>
-            <Story />
-          </div>
-          <div className="scroll-mt-20" ref={familyRef}>
-            <Family />
-          </div>
-          <div className="scroll-mt-20" ref={galleryRef}>
-            <Gallery />
-          </div>
-          <div className="scroll-mt-20">
-            <Blessing />
-          </div>
-          <div className="scroll-mt-20">
-            <Countdown />
-          </div>
-          {/* <div
-              className="scroll-mt-20  w-full flex items-center justify-center bg-[#faf7f2] pb-20"
-              ref={contactRef}
-            >
-              <WeddingQRCard qrSrc={"/icons/weddingQR.png"} />
-            </div> */}
-          <div className="scroll-mt-20" ref={contactRef}>
-            <Footer />
-          </div>
-        </FloatingHearts>
-      ) : (
-        <FloatingHearts>
-          <ExperienceGate
-            onEnter={() => {
-              localStorage.setItem("experienceAccepted", "true");
-              setEntered(true);
-            }}
-          />
-        </FloatingHearts>
-      )}
-    </div>
-  );
+          </button> */
 }
-
-export default App;

@@ -1,8 +1,11 @@
 import { LocationIcon } from "@/assets/assets";
 import { motion } from "framer-motion";
 import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
+import { useLanguageContext } from "@/contexts/language/context";
 
 export default function Venue() {
+  const { translations } = useLanguageContext();
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -18,7 +21,7 @@ export default function Venue() {
         transition={{ duration: 0.7 }}
         className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-16"
       >
-        Venue & Location
+        {translations?.venue?.title}
       </motion.h2>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-4 md:px-0">
@@ -51,26 +54,26 @@ export default function Venue() {
 
             {/* Title */}
             <h3 className="font-serif text-3xl md:text-4xl text-gray-800 mb-4 text-center">
-              Sri Lakshmi Narayan Mahal
+              {translations?.venue?.place}
             </h3>
 
             {/* Address */}
             <p className="text-gray-700 leading-relaxed mb-8 text-center text-sm md:text-base">
-              No. 93, C.T.H Road, <br />
-              Next to Sevvapet Police Station, <br />
-              Thiruvallur – 602025
+              {translations?.venue?.address1}, <br />
+              {translations?.venue?.address2}, <br />
+              {translations?.venue?.address3}
             </p>
 
             {/* Buttons */}
             <div className="flex flex-wrap justify-center gap-4">
               <motion.a
-                href="https://maps.app.goo.gl/67m1XDrmg4t6py9T8"
+                href={translations?.venue?.mapLocationLink}
                 target="_blank"
                 whileHover={{ scale: 1.1, rotate: 2 }}
                 transition={{ type: "spring", stiffness: 300 }}
                 className="px-6 py-3 rounded-full text-white bg-linear-to-r from-[#d4af37] via-[#e6c670] to-[#d4af37] shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
-                Open in Google Maps
+                {translations?.venue?.openGMaps}
               </motion.a>
             </div>
           </motion.div>
@@ -86,8 +89,8 @@ export default function Venue() {
             className="relative border h-full border-[#d4af37]/40 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
           >
             <iframe
-              title="Sri Lakshmi Narayan Mahal"
-              src="https://www.google.com/maps?q=Sri+Lakshmi+Narayan+Mahal+Sevvapet&z=18&t=k&output=embed"
+              title={translations?.venue?.place}
+              src={translations?.venue?.iFrameMapLocationLink}
               className="w-full h-96 md:h-full border-0 rounded-3xl transition-transform duration-500"
               loading="lazy"
             />
