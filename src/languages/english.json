@@ -8,8 +8,7 @@
   "headers": {
     "navItems": [
       { "title": "Home", "key": "home" },
-      { "title": "Our Story", "key": "our-story" },
-      { "title": "Family", "key": "family" },
+      { "title": "Story", "key": "our-story" },
       { "title": "Gallery", "key": "gallery" },
       { "title": "From The Couple", "key": "from-the-couple" }
     ]
@@ -23,11 +22,11 @@
     "footer": "You can disable music anytime"
   },
   "invitation": {
-    "verse": "And now these three remain: faith, hope and love. But the greatest of these is love.",
-    "chapter": "1 Cor 13:13",
+    "verse": "May the Lord make your love increase and overflow for each other.",
+    "chapter": "1 Thessalonians 3:12",
     "invite": " We warmly invite you to celebrate"
   },
-  "gallery": { "title": "Photo Gallery" },
+  "gallery": { "title": "Our Gallery" },
   "family": {
     "title": "Our Family",
     "groom": {
@@ -72,14 +71,14 @@
     }
   },
   "venue": {
-    "title": "Venue & Location",
-    "place": "Sri Lakshmi Narayan Mahal",
-    "address1": "No. 93, C.T.H Road",
+    "title": "Wedding Venue",
+    "place": "Sri Lakshmi Narayanan Mahal",
+    "address1": "No. 93, C.T.H Road, Sevvapet",
     "address2": "Next to Sevvapet Police Station",
     "address3": "Thiruvallur",
     "mapLocationLink": "https://maps.app.goo.gl/67m1XDrmg4t6py9T8",
     "iFrameMapLocationLink": "https://www.google.com/maps?q=Sri+Lakshmi+Narayan+Mahal+Sevvapet&z=18&t=k&output=embed",
-    "openGMaps": " Open in Google Maps"
+    "openGMaps": "Get Directions"
   },
   "countDown": {
     "title": "Counting down to our forever",
@@ -91,8 +90,8 @@
     ]
   },
   "footer": {
-    "para1": "Thank you for being part of our special day. Your presence, blessings,and love mean the world to us.",
-    "para2": "We are grateful for the laughter, the memories, and the joy you bring to our journey together.",
+    "para1": "Thank you for being part of our special day. Your presence, prayers, blessings, and love are a precious gift to us.",
+    "para2": "With grateful hearts, we thank God for the joy, memories, and faithful people He has placed in our lives as we begin this journey together.",
     "withLove": "With love"
   }
 }

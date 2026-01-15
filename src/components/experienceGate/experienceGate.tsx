@@ -165,7 +165,7 @@ export default function ExperienceGate({ onEnter }: { onEnter: () => void }) {
           onClick={handleEnter}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="px-10 py-4 rounded-full bg-[#d4af37] text-black text-lg font-medium tracking-wide shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+          className="px-10 py-4 rounded-full bg-[#d4af37] text-black text-lg font-medium tracking-wide shadow-md disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
         >
           {loading
             ? translations?.experienceGate?.entering

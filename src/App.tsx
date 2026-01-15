@@ -1,26 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import BackgroundMusic from "./components/backgroundMusic/backgroundMusic";
-import Blessing from "./components/blessings/blessing";
+// import Blessing from "./components/blessings/blessing";
 import Countdown from "./components/countdown/countdown";
-import Family from "./components/family/family";
+// import Family from "./components/family/family";
 import FloatingHearts from "./components/floatingHeart/floatingHeart";
 import Footer from "./components/footer/footer";
 import Gallery from "./components/gallery/gallery";
 import Header from "./components/header/header";
-import Invitation from "./components/Invitation/invitation";
+// import Invitation from "./components/Invitation/invitation";
 import Landing from "./components/landing/landing";
 import Story from "./components/story/story";
 import Venue from "./components/venue/venue";
 // import WeddingQRCard from "./components/weddingQr/weddingQr";
 import ExperienceGate from "./components/experienceGate/experienceGate";
+import Events from "./components/events/Events";
 
 function App() {
   const headerRef = useRef<HTMLDivElement | null>(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const storyRef = useRef<HTMLDivElement | null>(null);
   const galleryRef = useRef<HTMLDivElement | null>(null);
-  const familyRef = useRef<HTMLDivElement | null>(null);
+  const eventsRef = useRef<HTMLDivElement | null>(null);
+  // const familyRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
   const [entered, setEntered] = useState<boolean>(() => {
     return localStorage.getItem("experienceAccepted") === "true";
@@ -31,7 +33,8 @@ function App() {
       home: homeRef,
       "our-story": storyRef,
       gallery: galleryRef,
-      family: familyRef,
+      // family: familyRef,
+      events: eventsRef,
       "from-the-couple": contactRef,
     };
 
@@ -63,7 +66,7 @@ function App() {
   };
 
   useEffect(() => {
-    const container = document.querySelector("#root"); // or your scrollable div
+    const container = document.querySelector("#root");
     if (container) container.scrollTo({ top: 0 });
   }, []);
 
@@ -78,7 +81,7 @@ function App() {
       </div>
       <BackgroundMusic />
       <div
-        className="w-full min-h-screen overflow-y-auto"
+        className="w-full min-h-screen overflow-y-auto snap-y snap-mandatory"
         style={{
           WebkitOverflowScrolling: "touch",
         }}
@@ -86,32 +89,41 @@ function App() {
         {entered ? (
           <FloatingHearts>
             <div
-              className="h-full w-full lg:flex bg-[#faf7f2] justify-center items-center scroll-mt-20"
+              className="h-full w-full lg:flex bg-[#faf7f2] justify-center items-center scroll-mt-20 snap-start"
               ref={homeRef}
             >
               <Landing />
             </div>
 
-            <div className="scroll-mt-20">
+            {/* <div className="scroll-mt-20 snap-start">
               <Invitation />
-            </div>
+            </div> */}
 
-            <div className="scroll-mt-20">
+            <div className="scroll-mt-20 snap-start">
               <Venue />
             </div>
-            <div className="scroll-mt-20" ref={storyRef}>
+
+            <div className="scroll-mt-20 snap-start" ref={storyRef}>
               <Story />
             </div>
-            <div className="scroll-mt-20" ref={familyRef}>
-              <Family />
+
+            <div className="scroll-mt-20 snap-start" ref={eventsRef}>
+              <Events />
             </div>
-            <div className="scroll-mt-20" ref={galleryRef}>
+
+            {/* <div className="scroll-mt-20 snap-start" ref={familyRef}>
+              <Family />
+            </div> */}
+
+            <div className="scroll-mt-20 snap-start" ref={galleryRef}>
               <Gallery />
             </div>
-            <div className="scroll-mt-20">
+
+            {/* <div className="scroll-mt-20 snap-start">
               <Blessing />
-            </div>
-            <div className="scroll-mt-20">
+            </div> */}
+
+            <div className="scroll-mt-20 snap-start">
               <Countdown />
             </div>
             {/* <div
@@ -120,7 +132,7 @@ function App() {
             >
               <WeddingQRCard qrSrc={"/icons/weddingQR.png"} />
             </div> */}
-            <div className="scroll-mt-20" ref={contactRef}>
+            <div className="scroll-mt-20 snap-start" ref={contactRef}>
               <Footer />
             </div>
           </FloatingHearts>

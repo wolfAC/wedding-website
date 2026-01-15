@@ -69,12 +69,35 @@ export default function Countdown() {
 
           {/* Heading */}
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="font-[cursive] text-3xl md:text-4xl text-[#8b6b3d] mb-10"
+            transition={{ duration: 0.7 }}
+            className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-16"
           >
-            {translations?.countDown?.title}
+            <p
+              className="font-sans-modern text-sm tracking-[0.3em] uppercase mb-4"
+              style={{ color: "#d4af37" }}
+            >
+              Together Begins
+            </p>
+            Our Big Day
+            <div className="divider-ornament mt-6">
+              <span className="divider-line" />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#d4af37"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 6v6l-4 2" />
+                <circle cx="12" cy="12" r="10" />
+              </svg>
+              <span className="divider-line" />
+            </div>
           </motion.h2>
 
           {/* Countdown */}

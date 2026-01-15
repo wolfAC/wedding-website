@@ -1,3 +1,19 @@
 button {
   touch-action: manipulation;
 }
+
+/* Container for the sections to snap */
+.w-full.min-h-screen.overflow-y-auto {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Individual section that should snap */
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.w-full.min-h-screen.overflow-y-auto {
+  scroll-behavior: smooth;
+}

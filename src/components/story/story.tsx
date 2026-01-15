@@ -16,7 +16,7 @@ const timelineData: TimelineItem[] = [
     side: "left",
   },
   {
-    title: "First Conversation",
+    title: "First Talk",
     desc: "An honest and comfortable conversation that brought clarity, peace, and mutual respect.",
     date: "15 Feb 2025",
     side: "right",
@@ -28,7 +28,7 @@ const timelineData: TimelineItem[] = [
     side: "left",
   },
   {
-    title: "Growing in Understanding",
+    title: "Warmth",
     desc: "Time spent in conversations and prayer strengthened trust, values, and companionship.",
     date: "18 Apr 2025",
     side: "right",
@@ -55,10 +55,34 @@ const timelineData: TimelineItem[] = [
 
 export default function Story() {
   return (
-    <section className="min-h-screen bg-[#faf7f2] py-20 px-6">
-      <h2 className="text-center text-4xl md:text-5xl font-serif mb-16 text-gray-800">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="relative min-h-screen bg-linear-to-b from-[#fffaf0] to-[#faf7f2] py-20 px-6 overflow-hidden cursor-pointer"
+    >
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-16"
+      >
+        <p
+          className="font-sans-modern text-sm tracking-[0.3em] uppercase mb-4"
+          style={{ color: "#d4af37" }}
+        >
+          How It All Began
+        </p>
         Our Story
-      </h2>
+        <div className="divider-ornament mt-6">
+          <span className="divider-line" />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#D4AF37">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <span className="divider-line" />
+        </div>
+      </motion.h2>
 
       <div className="relative max-w-4xl mx-auto">
         {/* Vertical Line */}
@@ -87,7 +111,7 @@ export default function Story() {
                       <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
                         {item.title}
                       </h3>
-                      <p className="text-gray-700">{item.desc}</p>
+                      <p className="text-gray-700 font-serif">{item.desc}</p>
                     </>
                   )}
                 </div>
@@ -129,6 +153,6 @@ export default function Story() {
           ))}
         </AnimatePresence>
       </div>
-    </section>
+    </motion.section>
   );
 }

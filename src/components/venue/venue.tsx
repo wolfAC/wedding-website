@@ -21,7 +21,22 @@ export default function Venue() {
         transition={{ duration: 0.7 }}
         className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-16"
       >
+        <p
+          className="font-sans-modern text-sm tracking-[0.3em] uppercase mb-4"
+          style={{ color: "#d4af37" }}
+        >
+          JOIN US AT
+        </p>
+
         {translations?.venue?.title}
+
+        <div className="divider-ornament mt-6">
+          <span className="divider-line" />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#D4AF37">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+          </svg>
+          <span className="divider-line" />
+        </div>
       </motion.h2>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-4 md:px-0">
@@ -50,7 +65,7 @@ export default function Venue() {
             </motion.div>
 
             {/* Spacer */}
-            <div className="h-25" />
+            <div className="h-20" />
 
             {/* Title */}
             <h3 className="font-serif text-3xl md:text-4xl text-gray-800 mb-4 text-center">

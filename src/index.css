@@ -10,3 +10,26 @@ body,
   -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
   -webkit-overflow-scrolling: touch;
 }
+
+.font-serif-elegant {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.divider-line {
+  height: 1px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+/* globals.css */
+.snap-section {
+  height: calc(100vh - 64px);
+  scroll-snap-align: start;
+}

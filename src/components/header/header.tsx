@@ -21,11 +21,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
         {/* Logo */}
         <div
           onClick={() => onNavigate("home")}
-          className="text-2xl md:text-2xl font-[cursive] font-semibold text-gray-800 tracking-wide cursor-pointer"
+          className="text-xl md:text-2xl font-serif-elegant tracking-wide cursor-pointer"
         >
-          <span className="text-[#d4af37] notranslate">Anbu</span>{" "}
-          <span className="text-gray-800 notranslate">&</span>{" "}
-          <span className="text-[#d4af37] notranslate">Varshini</span>
+          <span className="text-[#d4af37] notranslate">A</span>{" "}
+          <span className="text-[#d4af37] text-[14px] notranslate">&</span>{" "}
+          <span className="text-[#d4af37] notranslate">V</span>
         </div>
 
         {/* Desktop Nav */}
@@ -66,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             // Heart loop when menu is closed
             <motion.div
               className="text-[#d4af37] text-4xl notranslate"
-              animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
+              // animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             >
               &#10084;&#65038;
