@@ -8,9 +8,10 @@
   "headers": {
     "navItems": [
       { "title": "Home", "key": "home" },
-      { "title": "Story", "key": "our-story" },
-      { "title": "Gallery", "key": "gallery" },
-      { "title": "From The Couple", "key": "from-the-couple" }
+      { "title": "Story", "key": "story" },
+      { "title": "Events", "key": "events" },
+      { "title": "Venue", "key": "venue" },
+      { "title": "Gallery", "key": "gallery" }
     ]
   },
   "experienceGate": {

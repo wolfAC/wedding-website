@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import BackgroundMusic from "./components/backgroundMusic/backgroundMusic";
 // import Blessing from "./components/blessings/blessing";
 import Countdown from "./components/countdown/countdown";
 // import Family from "./components/family/family";
-import FloatingHearts from "./components/floatingHeart/floatingHeart";
 import Footer from "./components/footer/footer";
 import Gallery from "./components/gallery/gallery";
 import Header from "./components/header/header";
@@ -13,145 +12,143 @@ import Landing from "./components/landing/landing";
 import Story from "./components/story/story";
 import Venue from "./components/venue/venue";
 // import WeddingQRCard from "./components/weddingQr/weddingQr";
+import Events from "./components/events/events";
 import ExperienceGate from "./components/experienceGate/experienceGate";
-import Events from "./components/events/Events";
+import FloatingHeartsOverlay from "./components/floatingHeartsOverlay/FloatingHeartsOverlay";
 
-function App() {
-  const headerRef = useRef<HTMLDivElement | null>(null);
+export default function App() {
+  const [entered, setEntered] = useState(
+    localStorage.getItem("experienceAccepted") === "true",
+  );
+
+  const headerRef = useRef(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const storyRef = useRef<HTMLDivElement | null>(null);
-  const galleryRef = useRef<HTMLDivElement | null>(null);
   const eventsRef = useRef<HTMLDivElement | null>(null);
-  // const familyRef = useRef<HTMLDivElement | null>(null);
+  const venueRef = useRef<HTMLDivElement | null>(null);
+  const galleryRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
-  const [entered, setEntered] = useState<boolean>(() => {
-    return localStorage.getItem("experienceAccepted") === "true";
-  });
 
-  const scrollToSection = (id: string) => {
-    const map: Record<string, React.RefObject<HTMLDivElement | null>> = {
-      home: homeRef,
-      "our-story": storyRef,
-      gallery: galleryRef,
-      // family: familyRef,
-      events: eventsRef,
-      "from-the-couple": contactRef,
-    };
-
-    const element = map[id]?.current;
-
-    console.log(element, "element");
-
-    if (!element) {
-      return;
-    }
-
-    const container = document.querySelector("#root");
-
-    if (!container) {
-      return;
-    }
-
-    const headerOffset = 80;
-
-    const elementPosition =
-      element.getBoundingClientRect().top + container.scrollTop;
-
-    const offsetPosition = elementPosition - headerOffset;
-
-    container.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
+  type SectionKey = keyof typeof sectionRefs;
+  const sectionRefs = {
+    home: homeRef,
+    story: storyRef,
+    events: eventsRef,
+    venue: venueRef,
+    gallery: galleryRef,
+    contact: contactRef,
   };
 
-  useEffect(() => {
-    const container = document.querySelector("#root");
-    if (container) container.scrollTo({ top: 0 });
-  }, []);
+  const scrollToSection = (key: SectionKey) => {
+    sectionRefs?.[key]?.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
-  if (entered === null) {
-    return null;
+  interface Heart {
+    x: number;
+    y: number;
+    id: number;
   }
+  const [hearts, setHearts] = useState<Heart[]>([]);
+  const heartIdRef = useRef(0);
+
+  const addHeart = (x: number, y: number) => {
+    const id = heartIdRef.current++;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const clampedX = Math.max(0, Math.min(x, vw));
+    const clampedY = Math.max(0, Math.min(y, vh));
+
+    setHearts((h) => [...h, { x: clampedX, y: clampedY, id }]);
+
+    setTimeout(() => {
+      setHearts((h) => h.filter((i) => i.id !== id));
+    }, 1500);
+  };
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-screen overflow-hidden">
       <div ref={headerRef}>
         <Header onNavigate={scrollToSection} />
       </div>
+
       <BackgroundMusic />
+
+      {/* HEART OVERLAY */}
+      <FloatingHeartsOverlay hearts={hearts} />
+
+      {/* MAIN SCROLL CONTAINER */}
       <div
-        className="w-full min-h-screen overflow-y-auto snap-y snap-mandatory"
-        style={{
-          WebkitOverflowScrolling: "touch",
+        className="h-screen overflow-y-scroll  overflow-x-hidden snap-y snap-mandatory scroll-smooth"
+        onPointerDownCapture={(e) => {
+          if (e.pointerType === "touch") {
+            addHeart(e.clientX, e.clientY);
+          }
         }}
       >
         {entered ? (
-          <FloatingHearts>
-            <div
-              className="h-full w-full lg:flex bg-[#faf7f2] justify-center items-center scroll-mt-20 snap-start"
+          <>
+            <section
               ref={homeRef}
+              className="min-h-screen snap-start snap-always flex items-center justify-center bg-[#faf7f2]"
             >
               <Landing />
-            </div>
+            </section>
 
-            {/* <div className="scroll-mt-20 snap-start">
-              <Invitation />
-            </div> */}
-
-            <div className="scroll-mt-20 snap-start">
-              <Venue />
-            </div>
-
-            <div className="scroll-mt-20 snap-start" ref={storyRef}>
-              <Story />
-            </div>
-
-            <div className="scroll-mt-20 snap-start" ref={eventsRef}>
-              <Events />
-            </div>
-
-            {/* <div className="scroll-mt-20 snap-start" ref={familyRef}>
-              <Family />
-            </div> */}
-
-            <div className="scroll-mt-20 snap-start" ref={galleryRef}>
-              <Gallery />
-            </div>
-
-            {/* <div className="scroll-mt-20 snap-start">
-              <Blessing />
-            </div> */}
-
-            <div className="scroll-mt-20 snap-start">
-              <Countdown />
-            </div>
-            {/* <div
-              className="scroll-mt-20  w-full flex items-center justify-center bg-[#faf7f2] pb-20"
-              ref={contactRef}
+            <section
+              ref={storyRef}
+              className="min-h-screen snap-start snap-always"
             >
-              <WeddingQRCard qrSrc={"/icons/weddingQR.png"} />
-            </div> */}
-            <div className="scroll-mt-20 snap-start" ref={contactRef}>
+              <Story />
+            </section>
+
+            <section
+              ref={eventsRef}
+              className="min-h-screen snap-start snap-always"
+            >
+              <Events />
+            </section>
+
+            <section
+              ref={venueRef}
+              className="min-h-screen snap-start snap-always"
+            >
+              <Venue />
+            </section>
+
+            <section
+              ref={galleryRef}
+              className="min-h-screen snap-start snap-always"
+            >
+              <Gallery />
+            </section>
+
+            <section className="min-h-screen snap-start snap-always">
+              <Countdown />
+            </section>
+
+            <section
+              ref={contactRef}
+              className="min-h-screen snap-start snap-always"
+            >
               <Footer />
-            </div>
-          </FloatingHearts>
+            </section>
+          </>
         ) : (
-          <FloatingHearts>
+          <section className="min-h-screen snap-start flex items-center justify-center">
             <ExperienceGate
               onEnter={() => {
                 localStorage.setItem("experienceAccepted", "true");
                 setEntered(true);
               }}
             />
-          </FloatingHearts>
+          </section>
         )}
       </div>
     </div>
   );
 }
-
-export default App;
 
 {
   /* <button

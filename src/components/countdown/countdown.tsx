@@ -41,7 +41,7 @@ export default function Countdown() {
 
   return (
     <ParallaxEffect depth={1}>
-      <section className="min-h-screen bg-[#faf7f2] flex items-center justify-center px-6">
+      <section className="min-h-screen bg-[#faf7f2] flex items-center justify-center pt-16 px-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

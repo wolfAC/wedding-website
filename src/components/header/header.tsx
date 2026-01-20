@@ -2,9 +2,9 @@
 import { useLanguageContext } from "@/contexts/language/context";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-
+export type SectionKey = "home" | "story" | "events" | "gallery" | "contact";
 interface HeaderProps {
-  onNavigate: (id: string) => void;
+  onNavigate: (section: SectionKey) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
           {translations?.headers?.navItems?.map((item) => (
             <button
               key={item?.key}
-              onClick={() => onNavigate(item.key)}
+              onClick={() => onNavigate(item.key as SectionKey)}
               className="hover:text-[#d4af37] transition-colors cursor-pointer"
             >
               {item?.title}
@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                 <li key={item?.key}>
                   <button
                     onClick={() => {
-                      onNavigate(item?.key);
+                      onNavigate(item?.key as SectionKey);
                       setIsOpen(false);
                     }}
                     className="text-lg hover:text-[#d4af37]"

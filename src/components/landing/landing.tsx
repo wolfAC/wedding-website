@@ -1,14 +1,6 @@
-import useWindowSize from "@/hooks/useWindowSize";
-
 export default function Landing() {
-  const windowSize = useWindowSize();
-  console.log(windowSize, "windowSize");
-
   return (
-    <section
-      className="relative w-full overflow-hidden lg:w-[65%] pt-16"
-      style={{ height: "100vh" }}
-    >
+    <section className="relative w-full lg:w-[65%] min-h-screen pt-16">
       <video
         src="/video/Invitation.webm"
         autoPlay
@@ -19,11 +11,11 @@ export default function Landing() {
         controlsList="nodownload nofullscreen noremoteplayback"
         onContextMenu={(e) => e.preventDefault()}
         className="
-      absolute top-16 left-0
-      w-full h-[calc(100%-64px)]
-      object-cover
-      pointer-events-none
-    "
+          absolute top-16 left-0
+          w-full h-[calc(100vh-64px)]
+          object-cover
+          pointer-events-none
+        "
       />
     </section>
   );
