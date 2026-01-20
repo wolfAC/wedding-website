@@ -14,7 +14,7 @@ import Venue from "./components/venue/venue";
 // import WeddingQRCard from "./components/weddingQr/weddingQr";
 import Events from "./components/events/events";
 import ExperienceGate from "./components/experienceGate/experienceGate";
-import FloatingHeartsOverlay from "./components/floatingHeartsOverlay/FloatingHeartsOverlay";
+import FloatingHeartsOverlay from "./components/floatingHeartsOverlay/floatingHeartsOverlay";
 
 export default function App() {
   const [entered, setEntered] = useState(
