@@ -1,26 +1,34 @@
 import { useRef, useState } from "react";
 import "./App.css";
 import BackgroundMusic from "./components/backgroundMusic/backgroundMusic";
-// import Blessing from "./components/blessings/blessing";
 import Countdown from "./components/countdown/countdown";
-// import Family from "./components/family/family";
-import Footer from "./components/footer/footer";
-import Gallery from "./components/gallery/gallery";
-import Header from "./components/header/header";
-// import Invitation from "./components/Invitation/invitation";
-import Landing from "./components/landing/landing";
-import Story from "./components/story/story";
-import Venue from "./components/venue/venue";
-// import WeddingQRCard from "./components/weddingQr/weddingQr";
 import Events from "./components/events/events";
 import ExperienceGate from "./components/experienceGate/experienceGate";
 import FloatingHeartsOverlay from "./components/floatingHeartsOverlay/floatingHeartsOverlay";
+import Footer from "./components/footer/footer";
+import Gallery from "./components/gallery/gallery";
+import Header from "./components/header/header";
+import Landing from "./components/landing/landing";
+import Story from "./components/story/story";
+import Venue from "./components/venue/venue";
+
+// import Invitation from "./components/Invitation/invitation";
+// import WeddingQRCard from "./components/weddingQr/weddingQr";
+// import Family from "./components/family/family";
+// import Blessing from "./components/blessings/blessing";
 
 export default function App() {
+  type SectionKey = keyof typeof sectionRefs;
+
+  interface Heart {
+    x: number;
+    y: number;
+    id: number;
+  }
+
   const [entered, setEntered] = useState(
     localStorage.getItem("experienceAccepted") === "true",
   );
-
   const headerRef = useRef(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const storyRef = useRef<HTMLDivElement | null>(null);
@@ -29,7 +37,6 @@ export default function App() {
   const galleryRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
 
-  type SectionKey = keyof typeof sectionRefs;
   const sectionRefs = {
     home: homeRef,
     story: storyRef,
@@ -43,11 +50,6 @@ export default function App() {
     sectionRefs?.[key]?.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  interface Heart {
-    x: number;
-    y: number;
-    id: number;
-  }
   const [hearts, setHearts] = useState<Heart[]>([]);
   const heartIdRef = useRef(0);
 

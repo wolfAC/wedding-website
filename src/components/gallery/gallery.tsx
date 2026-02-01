@@ -34,39 +34,57 @@ export default function Gallery() {
 
       <div className="max-w-6xl mx-auto columns-1 sm:columns-2 md:columns-3 gap-6 space-y-6">
         {[
-          "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=800&q=80",
-        ].map((src, index) => (
-          <ParallaxEffect depth={1}>
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.3 }}
-              transition={{
-                duration: 0.7,
-                ease: "easeOut",
-                delay: index * 0.06,
-              }}
-              className="relative overflow-hidden rounded-2xl group bg-white/60 backdrop-blur-sm will-change-transform"
-            >
-              <img
-                draggable={false} // Prevent drag & download
-                onContextMenu={(e) => e.preventDefault()}
-                src={src}
-                alt={`Gallery ${index + 1}`}
-                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
-              />
+          "/video/Diwali.webm",
+          "/images/Together.webp",
+          "/images/Eng.webp",
+          "/images/Bike.webp",
+          "/video/BikeRide.webm",
+          "/images/LilHer.webp",
+          "/images/LilHim.webp",
+          "/images/Heart.webp",
+        ].map((src, index) => {
+          const isVideo = src.endsWith(".webm") || src.endsWith(".mp4");
 
-              {/* Gold Hover Outline */}
-              <div className="absolute inset-0 rounded-2xl border border-[#d4af37] transition duration-700 pointer-events-none" />
-            </motion.div>
-          </ParallaxEffect>
-        ))}
+          return (
+            <ParallaxEffect key={index} depth={1}>
+              <motion.div
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.3 }}
+                transition={{
+                  duration: 0.7,
+                  ease: "easeOut",
+                  delay: index * 0.06,
+                }}
+                className="relative overflow-hidden rounded-2xl group bg-white/60 backdrop-blur-sm will-change-transform"
+              >
+                {isVideo ? (
+                  <video
+                    src={src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
+                  />
+                ) : (
+                  <img
+                    src={src}
+                    alt={`Gallery ${index + 1}`}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
+                  />
+                )}
+
+                {/* Gold Hover Outline */}
+                <div className="absolute inset-0 rounded-2xl border border-[#d4af37] transition duration-700 pointer-events-none" />
+              </motion.div>
+            </ParallaxEffect>
+          );
+        })}
       </div>
     </section>
   );
