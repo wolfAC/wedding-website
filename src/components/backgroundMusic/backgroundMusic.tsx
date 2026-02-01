@@ -36,7 +36,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.volume = 0.02;
+    audio.volume = 0.5;
     if (isPlaying) {
       audio.play().catch(() => setIsPlaying(false));
     } else {
@@ -94,7 +94,8 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
       <motion.div
         ref={containerRef}
         animate={{
-          width: showInfo && collapsedWidth ? "70vw" : collapsedWidth ?? "fit",
+          width:
+            showInfo && collapsedWidth ? "70vw" : (collapsedWidth ?? "fit"),
         }}
         transition={{
           type: "spring",
