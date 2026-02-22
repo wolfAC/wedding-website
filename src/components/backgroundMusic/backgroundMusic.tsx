@@ -138,10 +138,10 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
             autoPlay={autoPlay}
           />
 
-          <motion.div
-            role="button"
-            tabIndex={0}
+          <motion.button
+            type="button"
             onClick={() => setIsPlaying((p) => !p)}
+            aria-label={isPlaying ? "Pause audio" : "Play audio"}
             className="w-9 h-9 flex items-center justify-center rounded-full bg-[#d4af37]/70 hover:bg-[#d4af37] cursor-pointer"
           >
             <AnimatePresence mode="wait">
@@ -167,7 +167,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </motion.button>
 
           {/* <span className="text-gray-800 text-sm pr-2 select-none">
             {currentIndex + 1} / {songs.length}

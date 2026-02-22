@@ -103,7 +103,7 @@ const Events: React.FC = () => {
           viewBox="0 0 24 24"
           fill="none"
           stroke="#D4AF37"
-          stroke-width="1.5"
+          strokeWidth="1.5"
         >
           <path d="M8 21h8M12 17v4M17 5H7l1 12h8l1-12zM7 5V3h10v2" />
           <path d="M12 8v4" />
