@@ -138,7 +138,10 @@ export default function Footer() {
         {/* <!-- Social Share --> */}
         <div className="flex items-center justify-center gap-4 mb-8">
           <a
-            href="#"
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit our Facebook page"
             className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
             style={{ background: "rgba(212, 175, 55, 0.1)" }}
           >
@@ -147,7 +150,10 @@ export default function Footer() {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit our Instagram page"
             className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
             style={{ background: "rgba(212, 175, 55, 0.1)" }}
           >
@@ -156,7 +162,10 @@ export default function Footer() {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://wa.me/+918825726717"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with us on WhatsApp"
             className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
             style={{ background: "rgba(212, 175, 55, 0.1)" }}
           >

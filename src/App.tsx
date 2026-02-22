@@ -82,7 +82,8 @@ export default function App() {
       <FloatingHeartsOverlay hearts={hearts} />
 
       {/* MAIN SCROLL CONTAINER */}
-      <div
+      <main
+        id="main-content"
         className="h-screen overflow-y-scroll  overflow-x-hidden snap-y snap-mandatory scroll-smooth"
         onPointerDownCapture={(e) => {
           if (e.pointerType === "touch") {
@@ -148,7 +149,7 @@ export default function App() {
             />
           </section>
         )}
-      </div>
+      </main>
     </div>
   );
 }
