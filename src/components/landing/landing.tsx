@@ -7,6 +7,7 @@ export default function Landing() {
         muted
         playsInline
         controls={false}
+        draggable={false}
         disablePictureInPicture
         controlsList="nodownload nofullscreen noremoteplayback"
         onContextMenu={(e) => e.preventDefault()}

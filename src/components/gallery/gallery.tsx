@@ -64,7 +64,10 @@ export default function Gallery() {
                   muted
                   loop
                   playsInline
+                  preload="auto"
+                  disablePictureInPicture
                   draggable={false}
+                  controls={false}
                   onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
                 />
