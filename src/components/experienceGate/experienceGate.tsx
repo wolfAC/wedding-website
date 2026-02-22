@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import BackgroundMusic from "../backgroundMusic/backgroundMusic";
 import { useLanguageContext } from "@/contexts/language/context";
@@ -8,6 +8,7 @@ export default function ExperienceGate({ onEnter }: { onEnter: () => void }) {
   const [playMusic, setPlayMusic] = useState(true);
   const [isReady, setIsReady] = useState(false);
   const [progress, setProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const { translations } = useLanguageContext();
 
@@ -221,7 +222,7 @@ export default function ExperienceGate({ onEnter }: { onEnter: () => void }) {
         </motion.p>
       </motion.div>
 
-      {playMusic && <BackgroundMusic autoPlay loop />}
+      {playMusic && <BackgroundMusic loop audioRef={audioRef} />}
     </motion.div>
   );
 }

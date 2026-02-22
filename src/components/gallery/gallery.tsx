@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 import { useLanguageContext } from "@/contexts/language/context";
 
 export default function Gallery() {
@@ -42,47 +41,46 @@ export default function Gallery() {
           "/images/LilHer.webp",
           "/images/LilHim.webp",
           "/images/Heart.webp",
-        ].map((src, index) => {
+        ]?.map((src, index) => {
           const isVideo = src.endsWith(".webm") || src.endsWith(".mp4");
 
           return (
-            <ParallaxEffect key={index} depth={1}>
-              <motion.div
-                initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{
-                  duration: 0.7,
-                  ease: "easeOut",
-                  delay: index * 0.06,
-                }}
-                className="relative overflow-hidden rounded-2xl group bg-white/60 backdrop-blur-sm will-change-transform"
-              >
-                {isVideo ? (
-                  <video
-                    src={src}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    draggable={false}
-                    onContextMenu={(e) => e.preventDefault()}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
-                  />
-                ) : (
-                  <img
-                    src={src}
-                    alt={`Gallery ${index + 1}`}
-                    draggable={false}
-                    onContextMenu={(e) => e.preventDefault()}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
-                  />
-                )}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{
+                duration: 0.7,
+                ease: "easeOut",
+                delay: index * 0.06,
+              }}
+              className="relative overflow-hidden rounded-2xl group bg-white/60 backdrop-blur-sm will-change-transform"
+            >
+              {isVideo ? (
+                <video
+                  src={src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
+                />
+              ) : (
+                <img
+                  src={src}
+                  alt={`Gallery ${index + 1}`}
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 group-hover:opacity-90"
+                />
+              )}
 
-                {/* Gold Hover Outline */}
-                <div className="absolute inset-0 rounded-2xl border border-[#d4af37] transition duration-700 pointer-events-none" />
-              </motion.div>
-            </ParallaxEffect>
+              {/* Gold Hover Outline */}
+              <div className="absolute inset-0 rounded-2xl border border-[#d4af37] transition duration-700 pointer-events-none" />
+            </motion.div>
           );
         })}
       </div>

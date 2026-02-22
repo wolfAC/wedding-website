@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PlayIcon, PauseIcon } from "../../assets/assets.tsx";
+import { isSafari } from "@/utils/constant.tsx";
 
 interface BackgroundMusicProps {
   autoPlay?: boolean;
   loop?: boolean;
+  audioRef: React.RefObject<HTMLAudioElement | null>;
 }
 
 interface PulseBarsProps {
@@ -14,8 +16,8 @@ interface PulseBarsProps {
 const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   autoPlay = true,
   loop = true,
+  audioRef,
 }) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const holdTimeout = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,13 +38,21 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
     audio.volume = 0.5;
-    if (isPlaying) {
-      audio.play().catch(() => setIsPlaying(false));
-    } else {
-      audio.pause();
+
+    if (!isSafari) {
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          setIsPlaying(false);
+        });
     }
-  }, [isPlaying, currentIndex]);
+    // eslint-disable-next-line
+  }, []);
 
   /* Track ended */
   const handleEnded = () => {
@@ -135,12 +145,28 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
             ref={audioRef}
             src={songs[currentIndex].src}
             onEnded={handleEnded}
-            autoPlay={autoPlay}
           />
 
           <motion.button
             type="button"
-            onClick={() => setIsPlaying((p) => !p)}
+            onClick={() => {
+              const audio = audioRef.current;
+              if (!audio) return;
+
+              if (isPlaying) {
+                audio.pause();
+                setIsPlaying(false);
+              } else {
+                audio
+                  .play()
+                  .then(() => {
+                    setIsPlaying(true);
+                  })
+                  .catch(() => {
+                    setIsPlaying(false);
+                  });
+              }
+            }}
             aria-label={isPlaying ? "Pause audio" : "Play audio"}
             className="w-9 h-9 flex items-center justify-center rounded-full bg-[#d4af37]/70 hover:bg-[#d4af37] cursor-pointer"
           >

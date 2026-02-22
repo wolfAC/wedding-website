@@ -36,6 +36,7 @@ export default function App() {
   const venueRef = useRef<HTMLDivElement | null>(null);
   const galleryRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const sectionRefs = {
     home: homeRef,
@@ -75,7 +76,7 @@ export default function App() {
         <Header onNavigate={scrollToSection} />
       </div>
 
-      <BackgroundMusic />
+      <BackgroundMusic loop audioRef={audioRef} />
 
       {/* HEART OVERLAY */}
       <FloatingHeartsOverlay hearts={hearts} />

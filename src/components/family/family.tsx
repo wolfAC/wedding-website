@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 import { useLanguageContext } from "@/contexts/language/context";
 
 /* =======================
@@ -54,52 +53,50 @@ const FamilyCard = ({
       transition={{ duration: 0.6, ease: EASE_PREMIUM }}
       className="text-center"
     >
-      <ParallaxEffect depth={1}>
-        <motion.div
-          onClick={onToggle}
-          whileHover={{ scale: 1.05 }}
-          className="relative w-52 h-52 mx-auto rounded-full bg-white/60 backdrop-blur-xl border border-[#d4af37]/50 flex items-center justify-center shadow-2xl cursor-pointer overflow-hidden"
-        >
-          {/* Decorative star */}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10">
-            <div className="w-10 h-10 border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
-              <motion.span
-                className="text-[#d4af37] text-lg md:text-2xl notranslate"
-                animate={{ rotate: 360 }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4,
-                  ease: "linear",
-                }}
-              >
-                ✦
-              </motion.span>
-            </div>
-          </div>
-
-          <GoldGlow />
-
-          <div className="relative z-10 font-serif px-6">
-            <p className="text-gray-800 text-lg font-semibold">{member.name}</p>
-          </div>
-        </motion.div>
-
-        <p className="mt-5 text-sm font-serif text-gray-500">{member.role}</p>
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.4 }}
-              className="mt-4 max-w-sm mx-auto text-sm text-gray-600 italic bg-white/70 backdrop-blur-lg rounded-2xl px-6 py-4 shadow-inner"
+      <motion.div
+        onClick={onToggle}
+        whileHover={{ scale: 1.05 }}
+        className="relative w-52 h-52 mx-auto rounded-full bg-white/60 backdrop-blur-xl border border-[#d4af37]/50 flex items-center justify-center shadow-2xl cursor-pointer overflow-hidden"
+      >
+        {/* Decorative star */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10">
+          <div className="w-10 h-10 border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
+            <motion.span
+              className="text-[#d4af37] text-lg md:text-2xl notranslate"
+              animate={{ rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                duration: 4,
+                ease: "linear",
+              }}
             >
-              {member.description}
-            </motion.p>
-          )}
-        </AnimatePresence>
-      </ParallaxEffect>
+              ✦
+            </motion.span>
+          </div>
+        </div>
+
+        <GoldGlow />
+
+        <div className="relative z-10 font-serif px-6">
+          <p className="text-gray-800 text-lg font-semibold">{member.name}</p>
+        </div>
+      </motion.div>
+
+      <p className="mt-5 text-sm font-serif text-gray-500">{member.role}</p>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.4 }}
+            className="mt-4 max-w-sm mx-auto text-sm text-gray-600 italic bg-white/70 backdrop-blur-lg rounded-2xl px-6 py-4 shadow-inner"
+          >
+            {member.description}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

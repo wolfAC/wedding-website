@@ -1,6 +1,5 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ParallaxEffect } from "../parallaxEffect/parallaxEffect";
 
 interface TimelineItem {
   title: string;
@@ -92,65 +91,63 @@ export default function Story() {
         <AnimatePresence>
           {timelineData.map((item, idx) => (
             <React.Fragment key={`${idx}-${item.title}`}>
-              <ParallaxEffect depth={1}>
-                <motion.div
-                  className="relative flex items-center mb-20"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -30 }}
-                  viewport={{ once: false, amount: 0.3 }}
-                  transition={{ duration: 0.7, delay: idx * 0.2 }}
+              <motion.div
+                className="relative flex items-center mb-20"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                viewport={{ once: false, amount: 0.3 }}
+                transition={{ duration: 0.7, delay: idx * 0.2 }}
+              >
+                {/* Left Content */}
+                <div
+                  className={`w-1/2 ${
+                    item.side === "left" ? "pr-12 text-right" : "pr-12"
+                  }`}
                 >
-                  {/* Left Content */}
-                  <div
-                    className={`w-1/2 ${
-                      item.side === "left" ? "pr-12 text-right" : "pr-12"
-                    }`}
-                  >
-                    {item.side === "left" && (
-                      <>
-                        <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
-                          {item.title}
-                        </h3>
-                        <p className="text-gray-700 font-serif">{item.desc}</p>
-                      </>
-                    )}
-                  </div>
+                  {item.side === "left" && (
+                    <>
+                      <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-700 font-serif">{item.desc}</p>
+                    </>
+                  )}
+                </div>
 
-                  {/* Timeline Icon */}
-                  <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                    <div className="w-10 h-10 bg-white border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
-                      <motion.span
-                        className="text-[#d4af37] text-lg md:text-2xl notranslate"
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 4,
-                          ease: "linear",
-                        }}
-                      >
-                        ✦
-                      </motion.span>
-                    </div>
+                {/* Timeline Icon */}
+                <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                  <div className="w-10 h-10 bg-white border border-[#d4af37] rounded-full flex items-center justify-center shadow-md">
+                    <motion.span
+                      className="text-[#d4af37] text-lg md:text-2xl notranslate"
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 4,
+                        ease: "linear",
+                      }}
+                    >
+                      ✦
+                    </motion.span>
                   </div>
+                </div>
 
-                  {/* Right Content */}
-                  <div
-                    className={`w-1/2 ${
-                      item.side === "right" ? "pl-12 text-left" : "pl-12"
-                    }`}
-                  >
-                    {item.side === "right" && (
-                      <>
-                        <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
-                          {item.title}
-                        </h3>
-                        <p className="text-gray-700">{item.desc}</p>
-                      </>
-                    )}
-                  </div>
-                </motion.div>
-              </ParallaxEffect>
+                {/* Right Content */}
+                <div
+                  className={`w-1/2 ${
+                    item.side === "right" ? "pl-12 text-left" : "pl-12"
+                  }`}
+                >
+                  {item.side === "right" && (
+                    <>
+                      <h3 className="font-[cursive] text-3xl text-[#8b6b3d] mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-700">{item.desc}</p>
+                    </>
+                  )}
+                </div>
+              </motion.div>
             </React.Fragment>
           ))}
         </AnimatePresence>
