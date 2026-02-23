@@ -25,15 +25,13 @@ export default function Landing() {
       "
         />
       ) : (
-        <img
-          src="/images/Invitation.webp"
-          alt="Invitation"
-          className="
-        absolute top-14 left-0
-        w-full h-[calc(100vh-58px)]
-        object-cover
-      "
-        />
+        <div className="w-full flex justify-center items-center h-[calc(100vh-58px)]">
+          <img
+            src="/images/Invitation.webp"
+            alt="Invitation"
+            className="h-full absolute top-14 scale-110"
+          />
+        </div>
       )}
     </section>
   );
