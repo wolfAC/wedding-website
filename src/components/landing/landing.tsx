@@ -1,14 +1,17 @@
+import { content } from "@/config";
 import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Landing() {
   const { width } = useWindowSize();
   return (
-    <section
-      className={`relative w-full min-h-screen ${width < 1024 ? "pt-16" : "pt-14"}`}
-    >
+    <section aria-labelledby="landing-title" className="relative min-h-dvh w-full pt-16">
+      <h1 id="landing-title" className="sr-only">
+        {content.landing.title}
+      </h1>
       {width < 1024 ? (
         <video
           src="/video/Invitation.webm"
+          aria-label={content.landing.imageAlt}
           autoPlay
           muted
           playsInline
@@ -17,19 +20,15 @@ export default function Landing() {
           disablePictureInPicture
           controlsList="nodownload nofullscreen noremoteplayback"
           onContextMenu={(e) => e.preventDefault()}
-          className="
-        absolute top-16 left-0
-        w-full h-[calc(100vh-64px)]
-        object-cover
-        pointer-events-none
-      "
+          className="pointer-events-none absolute top-16 left-0 h-[calc(100dvh-64px)] w-full object-cover"
         />
       ) : (
-        <div className="w-full flex justify-center items-center h-[calc(100vh-58px)]">
+        <div className="flex h-[calc(100dvh-64px)] w-full items-center justify-center">
           <img
             src="/images/Invitation.webp"
-            alt="Invitation"
-            className="h-full absolute top-14 scale-110"
+            alt={content.landing.imageAlt}
+            fetchPriority="high"
+            className="absolute top-16 h-full scale-110"
           />
         </div>
       )}

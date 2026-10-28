@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
-import "./App.css";
 import BackgroundMusic from "./components/backgroundMusic/backgroundMusic";
 import Countdown from "./components/countdown/countdown";
-import Events from "./components/events/events";
 import ExperienceGate from "./components/experienceGate/experienceGate";
 import FloatingHeartsOverlay from "./components/floatingHeartsOverlay/floatingHeartsOverlay";
 import Footer from "./components/footer/footer";
@@ -11,44 +9,31 @@ import Header from "./components/header/header";
 import Landing from "./components/landing/landing";
 import Story from "./components/story/story";
 import Venue from "./components/venue/venue";
+import type { SectionKey } from "./config";
+import { cn } from "./lib/utils";
 
+// import Events from "./components/events/events";
 // import Invitation from "./components/Invitation/invitation";
 // import WeddingQRCard from "./components/weddingQr/weddingQr";
 // import Family from "./components/family/family";
 // import Blessing from "./components/blessings/blessing";
 
+interface Heart {
+  x: number;
+  y: number;
+  id: number;
+}
+
+const SNAP_SECTION = "min-h-dvh snap-start snap-always";
+
 export default function App() {
-  type SectionKey = keyof typeof sectionRefs;
-
-  interface Heart {
-    x: number;
-    y: number;
-    id: number;
-  }
-
   const [entered, setEntered] = useState(
     localStorage.getItem("experienceAccepted") === "true",
   );
-  const headerRef = useRef(null);
-  const homeRef = useRef<HTMLDivElement | null>(null);
-  const storyRef = useRef<HTMLDivElement | null>(null);
-  const eventsRef = useRef<HTMLDivElement | null>(null);
-  const venueRef = useRef<HTMLDivElement | null>(null);
-  const galleryRef = useRef<HTMLDivElement | null>(null);
-  const contactRef = useRef<HTMLDivElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const sectionRefs = {
-    home: homeRef,
-    story: storyRef,
-    events: eventsRef,
-    venue: venueRef,
-    gallery: galleryRef,
-    contact: contactRef,
-  };
-
   const scrollToSection = (key: SectionKey) => {
-    sectionRefs?.[key]?.current?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(key)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const [hearts, setHearts] = useState<Heart[]>([]);
@@ -71,10 +56,15 @@ export default function App() {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      <div ref={headerRef}>
-        <Header onNavigate={scrollToSection} />
-      </div>
+    <div className="relative h-dvh w-full overflow-hidden">
+      <a
+        href="#main-content"
+        className="sr-only z-60 rounded-full bg-ink px-4 py-2 text-ivory focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      >
+        Skip to content
+      </a>
+
+      <Header onNavigate={scrollToSection} />
 
       <BackgroundMusic loop audioRef={audioRef} />
 
@@ -84,7 +74,8 @@ export default function App() {
       {/* MAIN SCROLL CONTAINER */}
       <main
         id="main-content"
-        className="h-screen overflow-y-scroll  overflow-x-hidden snap-y snap-mandatory scroll-smooth"
+        tabIndex={-1}
+        className="h-dvh snap-y snap-mandatory overflow-x-hidden overflow-y-scroll scroll-smooth"
         onPointerDownCapture={(e) => {
           if (e.pointerType === "touch") {
             addHeart(e.clientX, e.clientY);
@@ -93,77 +84,36 @@ export default function App() {
       >
         {entered ? (
           <>
-            <section
-              ref={homeRef}
-              className="min-h-screen snap-start snap-always flex items-center justify-center bg-[#faf7f2]"
-            >
+            <div id="home" className={cn(SNAP_SECTION, "flex items-center justify-center bg-ivory")}>
               <Landing />
-            </section>
-
-            <section
-              ref={storyRef}
-              className="min-h-screen snap-start snap-always"
-            >
+            </div>
+            <div id="story" className={SNAP_SECTION}>
               <Story />
-            </section>
-
-            <section
-              ref={eventsRef}
-              className="min-h-screen snap-start snap-always"
-            >
-              <Events />
-            </section>
-
-            <section
-              ref={venueRef}
-              className="min-h-screen snap-start snap-always"
-            >
+            </div>
+            <div id="venue" className={SNAP_SECTION}>
               <Venue />
-            </section>
-
-            <section
-              ref={galleryRef}
-              className="min-h-screen snap-start snap-always"
-            >
+            </div>
+            <div id="gallery" className={SNAP_SECTION}>
               <Gallery />
-            </section>
-
-            <section className="min-h-screen snap-start snap-always">
+            </div>
+            <div id="countdown" className={SNAP_SECTION}>
               <Countdown />
-            </section>
-
-            <section
-              ref={contactRef}
-              className="min-h-screen snap-start snap-always"
-            >
+            </div>
+            <div id="contact" className={SNAP_SECTION}>
               <Footer />
-            </section>
+            </div>
           </>
         ) : (
-          <section className="min-h-screen snap-start flex items-center justify-center">
+          <div className="flex min-h-dvh snap-start items-center justify-center">
             <ExperienceGate
               onEnter={() => {
                 localStorage.setItem("experienceAccepted", "true");
                 setEntered(true);
               }}
             />
-          </section>
+          </div>
         )}
       </main>
     </div>
   );
-}
-
-{
-  /* <button
-            onClick={() => {
-              localStorage.removeItem("experienceAccepted");
-              window.location.reload();
-            }}
-            className="fixed bottom-4 right-4 px-4 py-2 text-xs rounded-full
-             bg-[#d4af37]/80 text-black shadow-md
-             hover:bg-[#d4af37] transition"
-          >
-            Reset Experience
-          </button> */
 }

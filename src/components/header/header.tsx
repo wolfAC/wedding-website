@@ -1,78 +1,71 @@
-// import { LanguagesIcon, RestIcon } from "@/assets/assets";
-import { useLanguageContext } from "@/contexts/language/context";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-export type SectionKey = "home" | "story" | "events" | "gallery" | "contact";
+import { Heart, X } from "@/components/icons";
+import { content, siteConfig, type SectionKey } from "@/config";
+
 interface HeaderProps {
   onNavigate: (section: SectionKey) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    translations,
-    //  changeLanguage,
-    //  language
-  } = useLanguageContext();
+  const { groom, bride } = siteConfig.monogram;
 
   return (
-    <header className="fixed w-full bg-white/10 backdrop-blur-md z-50 shadow-md">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+    <header className="fixed z-50 w-full border-b border-gold/20 bg-ivory/85 pt-[env(safe-area-inset-top)] backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
         {/* Logo */}
-        <div
+        <button
+          type="button"
           onClick={() => onNavigate("home")}
-          className="text-xl md:text-2xl font-serif-elegant tracking-wide cursor-pointer"
+          aria-label={`${siteConfig.groomName} & ${siteConfig.brideName}, back to top`}
+          className="notranslate -ml-2 min-h-11 cursor-pointer px-2 font-script text-2xl text-gold-ink"
         >
-          <span className="text-[#d4af37] notranslate">A</span>{" "}
-          <span className="text-[#d4af37] text-[14px] notranslate">&</span>{" "}
-          <span className="text-[#d4af37] notranslate">V</span>
-        </div>
+          {groom} <span className="text-lg">&amp;</span> {bride}
+        </button>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-8 font-serif text-gray-800">
-          {translations?.headers?.navItems?.map((item) => (
+        <nav aria-label="Main" className="hidden gap-2 font-serif text-lg text-ink md:flex">
+          {content.nav.map((item) => (
             <button
-              key={item?.key}
-              onClick={() => onNavigate(item.key as SectionKey)}
-              className="hover:text-[#d4af37] transition-colors cursor-pointer"
+              key={item.key}
+              type="button"
+              onClick={() => onNavigate(item.key)}
+              className="min-h-11 cursor-pointer px-3 transition-colors duration-200 hover:text-gold-ink"
             >
-              {item?.title}
+              {item.title}
             </button>
           ))}
         </nav>
 
-        <div
-          className="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer"
+        <button
+          type="button"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
+          className="flex size-11 cursor-pointer items-center justify-center text-gold-ink md:hidden"
           onClick={() => {
             if (localStorage.getItem("experienceAccepted") === "true") {
               setIsOpen(!isOpen);
             }
           }}
         >
-          {isOpen ? (
-            // X for open state
-            <div className="relative w-8 h-8">
-              <motion.span
-                className="absolute w-full h-0.5 bg-[#d4af37] top-1/2 left-0 origin-center"
-                animate={{ rotate: 45 }}
-              />
-              <motion.span className="absolute w-full h-0.5 bg-[#d4af37] top-1/2 left-0 -translate-y-1/2 opacity-0" />
-              <motion.span
-                className="absolute w-full h-0.5 bg-[#d4af37] top-1/2 left-0 origin-center"
-                animate={{ rotate: -45 }}
-              />
-            </div>
-          ) : (
-            // Heart loop when menu is closed
-            <motion.div
-              className="text-[#d4af37] text-4xl notranslate"
-              // animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={isOpen ? "close" : "open"}
+              initial={{ opacity: 0, rotate: -45, scale: 0.7 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 45, scale: 0.7 }}
+              transition={{ duration: 0.15 }}
             >
-              &#10084;&#65038;
-            </motion.div>
-          )}
-        </div>
+              {isOpen ? (
+                <X className="size-7" />
+              ) : (
+                <Heart className="size-7" fill="currentColor" />
+              )}
+            </motion.span>
+          </AnimatePresence>
+        </button>
       </div>
 
       {/* Mobile Menu */}
@@ -83,44 +76,26 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/10 backdrop-blur-md shadow-md"
+            id="mobile-menu"
+            aria-label="Main"
+            className="overflow-hidden border-t border-gold/20 md:hidden"
           >
-            <ul className="flex flex-col items-center py-6 space-y-4 font-serif">
-              {translations?.headers?.navItems?.map((item) => (
-                <li key={item?.key}>
+            <ul className="flex flex-col items-center gap-1 py-4 font-serif text-ink">
+              {content.nav.map((item) => (
+                <li key={item.key}>
                   <button
+                    type="button"
                     onClick={() => {
-                      onNavigate(item?.key as SectionKey);
+                      onNavigate(item.key);
                       setIsOpen(false);
                     }}
-                    className="text-lg hover:text-[#d4af37]"
+                    className="min-h-11 px-6 text-xl transition-colors duration-200 hover:text-gold-ink"
                   >
-                    {item?.title}
+                    {item.title}
                   </button>
                 </li>
               ))}
             </ul>
-
-            {/* <div className="flex items-center justify-center space-x-3">
-              <HeaderAction
-                label="Change Language"
-                icon={<LanguagesIcon />}
-                onClick={() =>
-                  language === "english"
-                    ? changeLanguage("english")
-                    : changeLanguage("tamil")
-                }
-              />
-
-              <HeaderAction
-                label="Reset"
-                icon={<RestIcon />}
-                onClick={() => {
-                  localStorage.setItem("experienceAccepted", "false");
-                  window.location.reload();
-                }}
-              />
-            </div> */}
           </motion.nav>
         )}
       </AnimatePresence>
@@ -129,22 +104,3 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 };
 
 export default Header;
-
-// const HeaderAction: React.FC<{
-//   icon: React.ReactNode;
-//   label: string;
-//   onClick: () => void;
-// }> = ({ icon, label, onClick }) => (
-//   <button
-//     onClick={onClick}
-//     aria-label={label}
-//     className="group relative w-9 h-9 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md hover:bg-[#d4af37]/20 transition-all"
-//   >
-//     <span className="text-lg text-[#d4af37] select-none">{icon}</span>
-
-//     {/* Tooltip (desktop only) */}
-//     <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 text-xs bg-black/70 text-white px-2 py-1 rounded transition pointer-events-none whitespace-nowrap">
-//       {label}
-//     </span>
-//   </button>
-// );

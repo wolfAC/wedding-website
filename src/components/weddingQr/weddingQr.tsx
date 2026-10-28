@@ -21,7 +21,7 @@ const WeddingQRCard: FC<WeddingQRCardProps> = ({
       </div>
 
       {/* Footer Text */}
-      <p className="mt-4 text-center text-3xl font-[cursive] text-white tracking-wide">
+      <p className="mt-4 text-center text-3xl font-script text-white tracking-wide">
         {title}
       </p>
     </div>

@@ -1,112 +1,82 @@
-import { LocationIcon } from "@/assets/assets";
-import { motion } from "framer-motion";
-import { useLanguageContext } from "@/contexts/language/context";
+import { MapPin } from "@/components/icons";
+import { Reveal } from "@/components/shared/reveal";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { content } from "@/config";
 
 export default function Venue() {
-  const { translations } = useLanguageContext();
+  const venue = content.venue;
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="relative min-h-screen bg-linear-to-b from-[#fffaf0] to-[#faf7f2] py-20 px-6 overflow-hidden cursor-pointer"
+    <section
+      aria-labelledby="venue-title"
+      className="relative min-h-dvh overflow-hidden bg-linear-to-b from-cream to-ivory px-6 pt-28 pb-20"
     >
-      {/* Heading */}
-      <motion.h2
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-16"
-      >
-        <p
-          className="font-sans-modern text-sm tracking-[0.3em] uppercase mb-4"
-          style={{ color: "#d4af37" }}
-        >
-          JOIN US AT
-        </p>
+      <SectionHeading
+        id="venue-title"
+        eyebrow={venue.eyebrow}
+        title={venue.title}
+        icon={<MapPin className="size-5" />}
+      />
 
-        {translations?.venue?.title}
-
-        <div className="divider-ornament mt-6">
-          <span className="divider-line" />
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#D4AF37">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-          </svg>
-          <span className="divider-line" />
-        </div>
-      </motion.h2>
-
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-4 md:px-0">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 md:grid-cols-2 md:px-0">
         {/* Left: Venue Details */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.8 }}
-          className="relative bg-white/40 backdrop-blur-3xl border border-[#d4af37]/30 rounded-3xl p-12 shadow-2xl hover:shadow-3xl transition-shadow duration-500 max-w-md mx-auto overflow-hidden"
-        >
+        <Reveal className="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-gold/30 bg-white/60 px-8 py-10 shadow-xl backdrop-blur-xl md:p-12">
           {/* Decorative Background Circles */}
-          <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-linear-to-tr from-[#d4af37]/20 to-[#d4af37]/5 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-linear-to-br from-[#d4af37]/10 to-[#d4af37]/5 blur-3xl pointer-events-none" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-20 -left-20 size-60 rounded-full bg-linear-to-tr from-gold/20 to-gold/5 blur-3xl"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full bg-linear-to-br from-gold/10 to-gold/5 blur-3xl"
+          />
 
-          {/* Floating Icon half-outside */}
-          <motion.div
-            animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
-            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-            className="absolute -top-18 left-1/2 -translate-x-1/2 flex justify-center w-full"
-          >
-            <span className="text-[180px] text-[#d4af37]/20 pointer-events-none">
-              <LocationIcon size={180} />
+          <div aria-hidden="true" className="mb-6 flex justify-center text-gold">
+            <span className="flex size-16 items-center justify-center rounded-full bg-gold/10">
+              <MapPin className="size-7.5" />
             </span>
-          </motion.div>
+          </div>
 
-          {/* Spacer */}
-          <div className="h-20" />
-
-          {/* Title */}
-          <h3 className="font-serif text-3xl md:text-4xl text-gray-800 mb-4 text-center">
-            {translations?.venue?.place}
+          <h3 className="mb-4 text-center font-serif text-3xl font-medium text-balance text-ink md:text-4xl">
+            {venue.place}
           </h3>
 
-          {/* Address */}
-          <p className="text-gray-700 leading-relaxed mb-8 text-center text-sm md:text-base">
-            {translations?.venue?.address1}, <br />
-            {translations?.venue?.address2}, <br />
-            {translations?.venue?.address3}
-          </p>
+          <address className="mb-8 text-center font-serif text-lg leading-relaxed text-ink-soft not-italic">
+            {venue.address.map((line, i) => (
+              <span key={line} className="block">
+                {line}
+                {i < venue.address.length - 1 && ","}
+              </span>
+            ))}
+          </address>
 
-          {/* Buttons */}
           <div className="flex flex-wrap justify-center gap-4">
-            <motion.a
-              href={translations?.venue?.mapLocationLink}
+            <a
+              href={venue.mapLink}
               target="_blank"
-              whileHover={{ scale: 1.1, rotate: 2 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="px-6 py-3 rounded-full text-white bg-linear-to-r from-[#d4af37] via-[#e6c670] to-[#d4af37] shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full bg-linear-to-r from-gold via-gold-light to-gold px-7 font-sans font-medium text-ink shadow-md transition duration-200 hover:shadow-lg hover:brightness-105 active:scale-[0.98]"
             >
-              {translations?.venue?.openGMaps}
-            </motion.a>
+              <MapPin className="size-4.5" />
+              {venue.directions}
+              <span className="sr-only">{venue.directionsHint}</span>
+            </a>
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Right: Map */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          whileHover={{ scale: 1.02 }}
-          className="relative border h-full border-[#d4af37]/40 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
+        <Reveal
+          delay={0.1}
+          className="relative h-full min-h-80 overflow-hidden rounded-3xl border border-gold/40 shadow-xl"
         >
           <iframe
-            title={translations?.venue?.place}
-            src={translations?.venue?.iFrameMapLocationLink}
-            className="w-full h-96 md:h-full border-0 rounded-3xl transition-transform duration-500"
+            title={venue.place}
+            src={venue.mapEmbed}
+            className="h-80 w-full border-0 md:h-full"
             loading="lazy"
           />
-        </motion.div>
+        </Reveal>
       </div>
-    </motion.section>
+    </section>
   );
 }

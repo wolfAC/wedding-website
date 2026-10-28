@@ -1,4 +1,5 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
+import { Heart as HeartIcon } from "@/components/icons";
 interface Heart {
   x: number;
   y: number;
@@ -7,7 +8,7 @@ interface Heart {
 
 export default function FloatingHeartsOverlay({ hearts }: { hearts: Heart[] }) {
   return (
-    <div className="fixed inset-0 z-9999 pointer-events-none">
+    <div className="fixed inset-0 z-9999 pointer-events-none" aria-hidden="true">
       <AnimatePresence>
         {hearts.map((heart) => (
           <motion.span
@@ -16,10 +17,10 @@ export default function FloatingHeartsOverlay({ hearts }: { hearts: Heart[] }) {
             animate={{ opacity: 1, scale: 1, y: -100 }}
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 1.5 }}
-            className="absolute text-[#d4af37] text-3xl"
-            style={{ left: heart.x, top: heart.y }}
+            className="absolute top-(--y) left-(--x) text-gold"
+            style={{ "--x": `${heart.x}px`, "--y": `${heart.y}px` } as React.CSSProperties}
           >
-            &#10084; &#65038;
+            <HeartIcon className="size-8" fill="currentColor" strokeWidth={0} />
           </motion.span>
         ))}
       </AnimatePresence>

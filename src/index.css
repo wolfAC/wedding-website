@@ -1,35 +1,37 @@
 @import "tailwindcss";
 
-html,
-body,
-#root {
-  height: 100%;
-  background-color: #faf7f2;
-  user-select: none;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-  -webkit-overflow-scrolling: touch;
+/* Design tokens: ornaments use `gold`, any text uses `gold-ink` (4.5:1+ on ivory) */
+@theme {
+  --color-ivory: #faf7f2;
+  --color-cream: #fffaf0;
+  --color-sand: #f5efe6;
+  --color-linen: #eee6d8;
+  --color-gold: #d4af37;
+  --color-gold-light: #e6c670;
+  --color-gold-soft: #f4e4bc;
+  --color-gold-ink: #7a5c14;
+  --color-bronze: #8b6b3d;
+  --color-ink: #3d3229;
+  --color-ink-soft: #5c4a3d;
+  --color-ink-muted: #6b5b4f;
+
+  --font-serif: "Cormorant Infant", Georgia, serif;
+  --font-script: "Great Vibes", cursive;
+  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
 }
 
-.font-serif-elegant {
-  font-family: "Cormorant Garamond", Georgia, serif;
-}
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full overflow-y-auto bg-ivory font-serif text-ink antialiased;
+  }
 
-.divider-ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
+  button {
+    touch-action: manipulation;
+  }
 
-.divider-line {
-  height: 1px;
-  width: 60px;
-  background: linear-gradient(90deg, transparent, #d4af37, transparent);
-}
-
-/* globals.css */
-.snap-section {
-  height: calc(100vh - 64px);
-  scroll-snap-align: start;
+  :focus-visible {
+    @apply rounded-sm outline-2 outline-offset-3 outline-gold-ink;
+  }
 }

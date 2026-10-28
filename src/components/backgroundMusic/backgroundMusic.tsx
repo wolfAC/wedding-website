@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { PlayIcon, PauseIcon } from "../../assets/assets.tsx";
+import { AnimatePresence, motion } from "motion/react";
+import { CirclePause, CirclePlay } from "@/components/icons";
+import { siteConfig } from "@/config";
 import { isSafari } from "@/utils/constant.tsx";
 
 interface BackgroundMusicProps {
@@ -26,13 +27,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   const [showInfo, setShowInfo] = useState(false);
   const [collapsedWidth, setCollapsedWidth] = useState<number | null>(null);
 
-  const songs = [
-    {
-      src: "/music/perfect.webm",
-      title: "Perfect",
-      artist: "Ed Sheeran",
-    },
-  ];
+  const songs = siteConfig.music;
 
   /*  Play / Pause */
   useEffect(() => {
@@ -99,7 +94,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed bottom-6 right-4 z-50 select-none"
+      className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-4 z-50 select-none"
     >
       <motion.div
         ref={containerRef}
@@ -112,8 +107,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           stiffness: 200,
           damping: 50,
         }}
-        style={{ transformOrigin: "right center" }}
-        className="flex items-center gap-3 bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-md overflow-hidden"
+        className="origin-right flex items-center gap-3 bg-white/70 backdrop-blur-sm p-1.5 rounded-full shadow-md border border-gold/30 overflow-hidden"
       >
         {/*  Song Info */}
         <AnimatePresence>
@@ -124,14 +118,14 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -12 }}
               transition={{ duration: 0.2 }}
-              className="flex items-center pl-3 pr-1 text-black whitespace-nowrap shrink-0 gap-2"
+              className="flex items-center pl-3 pr-1 text-ink whitespace-nowrap shrink-0 gap-2"
             >
               <PulseBars isPlaying={isPlaying} />
               <div>
                 <p className="text-sm font-semibold leading-tight">
                   {songs[currentIndex].title}
                 </p>
-                <p className="text-xs opacity-70">
+                <p className="text-xs text-ink-muted">
                   {songs[currentIndex].artist}
                 </p>
               </div>
@@ -168,7 +162,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
               }
             }}
             aria-label={isPlaying ? "Pause audio" : "Play audio"}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#d4af37]/70 hover:bg-[#d4af37] cursor-pointer"
+            className="size-11 flex items-center justify-center rounded-full bg-gold/80 hover:bg-gold transition-colors duration-200 cursor-pointer"
           >
             <AnimatePresence mode="wait">
               {isPlaying ? (
@@ -179,7 +173,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
                   exit={{ scale: 0.7, opacity: 0 }}
                   transition={{ duration: 0.15 }}
                 >
-                  <PauseIcon color="black" />
+                  <CirclePause className="size-6 text-ink" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -189,7 +183,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
                   exit={{ scale: 0.7, opacity: 0 }}
                   transition={{ duration: 0.15 }}
                 >
-                  <PlayIcon color="black" />
+                  <CirclePlay className="size-6 text-ink" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -213,8 +207,7 @@ const PulseBars: React.FC<PulseBarsProps> = ({ isPlaying }) => {
       {bars.map((i) => (
         <motion.div
           key={i}
-          className="w-1 bg-[#d4af37] rounded-sm"
-          style={{ height: 16, transformOrigin: "bottom" }} // fixed height
+          className="h-4 w-1 origin-bottom rounded-sm bg-gold"
           animate={{
             scaleY: isPlaying ? [0.3, 1, 0.3] : 0.3, // animates relative to height
           }}

@@ -1,152 +1,110 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useLanguageContext } from "@/contexts/language/context";
+import { AnimatePresence, motion } from "motion/react";
+import { Clock, Sparkle } from "@/components/icons";
+import { Lottie } from "@/components/shared/lottie";
+import { Reveal } from "@/components/shared/reveal";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { content, siteConfig } from "@/config";
+import { cn } from "@/lib/utils";
 
-type TimeLeft = {
+type Duration = {
   days: string;
   hours: string;
   minutes: string;
   seconds: string;
 };
 
-export default function Countdown() {
-  const { translations } = useLanguageContext();
+/** Time until the wedding, or time since it once the date has passed. */
+const getDuration = (): { isMarried: boolean; time: Duration } => {
+  const diff = siteConfig.weddingDate.getTime() - Date.now();
+  const abs = Math.abs(diff);
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
-    days: "00",
-    hours: "00",
-    minutes: "00",
-    seconds: "00",
-  });
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  return {
+    isMarried: diff <= 0,
+    time: {
+      days: Math.floor(abs / (1000 * 60 * 60 * 24)).toString(),
+      hours: pad(Math.floor((abs / (1000 * 60 * 60)) % 24)),
+      minutes: pad(Math.floor((abs / (1000 * 60)) % 60)),
+      seconds: pad(Math.floor((abs / 1000) % 60)),
+    },
+  };
+};
+
+const CORNERS = ["top-4 left-4", "top-4 right-4", "bottom-4 left-4", "bottom-4 right-4"];
+
+export default function Countdown() {
+  const copy = content.countdown;
+  const [{ isMarried, time }, setDuration] = useState(getDuration);
 
   useEffect(() => {
-    const weddingDate = new Date("2026-03-05T10:00:00");
-    const timer = setInterval(() => {
-      const now = new Date();
-      const diff = weddingDate.getTime() - now.getTime();
-
-      if (diff <= 0) return clearInterval(timer);
-
-      setTimeLeft({
-        days: Math.floor(diff / (1000 * 60 * 60 * 24)).toString(),
-        hours: Math.floor((diff / (1000 * 60 * 60)) % 24).toString(),
-        minutes: Math.floor((diff / (1000 * 60)) % 60).toString(),
-        seconds: Math.floor((diff / 1000) % 60).toString(),
-      });
-    }, 1000);
-
+    const timer = setInterval(() => setDuration(getDuration()), 1000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="min-h-screen bg-[#faf7f2] flex items-center justify-center pt-16 px-6">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative max-w-4xl w-full text-center bg-white/80 backdrop-blur-sm rounded-3xl p-12"
-      >
+    <section
+      aria-labelledby="countdown-title"
+      className="flex min-h-dvh items-center justify-center bg-ivory px-4 pt-24 pb-12 md:px-6"
+    >
+      <Reveal className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-gold/30 bg-white/70 px-6 py-12 text-center backdrop-blur-sm md:p-12">
         {/* Decorative Background Gradient Circle */}
-        <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-linear-to-tr from-[#d4af37]/30 to-[#d4af37]/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-linear-to-br from-[#d4af37]/20 to-[#d4af37]/5 blur-3xl pointer-events-none" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-20 -left-20 size-60 rounded-full bg-linear-to-tr from-gold/30 to-gold/10 blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 -bottom-20 size-72 rounded-full bg-linear-to-br from-gold/20 to-gold/5 blur-3xl"
+        />
         {/* Floral Corners */}
-        {[
-          "top-4 left-4",
-          "top-4 right-4",
-          "bottom-4 left-4",
-          "bottom-4 right-4",
-        ].map((pos, i) => (
-          <span
-            key={i}
-            className={`absolute ${pos} text-[#d4af37] text-2xl animate-pulse notranslate`}
-          >
-            ✦
-          </span>
+        {CORNERS.map((pos) => (
+          <Sparkle
+            key={pos}
+            fill="currentColor"
+            className={cn("absolute size-5 text-gold", pos)}
+          />
         ))}
 
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-center text-4xl md:text-5xl font-serif text-gray-800 mb-16"
+        <SectionHeading
+          id="countdown-title"
+          eyebrow={isMarried ? copy.marriedEyebrow : copy.eyebrow}
+          title={isMarried ? copy.marriedTitle : copy.title}
+          className="relative mb-12"
+          icon={<Clock className="size-6" />}
+        />
+
+        <div
+          role="timer"
+          aria-label={`${time.days} ${isMarried ? copy.marriedTimerLabel : copy.timerLabel}`}
+          className="relative grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8"
         >
-          <p
-            className="font-sans-modern text-sm tracking-[0.3em] uppercase mb-4"
-            style={{ color: "#d4af37" }}
-          >
-            Together Begins
-          </p>
-          Our Big Day
-          <div className="divider-ornament mt-6">
-            <span className="divider-line" />
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#d4af37"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 6v6l-4 2" />
-              <circle cx="12" cy="12" r="10" />
-            </svg>
-            <span className="divider-line" />
-          </div>
-        </motion.h2>
+          {copy.units.map((unit) => (
+            <div key={unit.key} aria-hidden="true">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.p
+                  key={time[unit.key]}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.2 }}
+                  className="notranslate font-serif text-5xl font-semibold text-ink tabular-nums md:text-6xl"
+                >
+                  {time[unit.key]}
+                </motion.p>
+              </AnimatePresence>
 
-        {/* Countdown */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {translations?.countDown?.units?.map((unit, index) => {
-            const key = unit.key as keyof TimeLeft;
-            return (
-              <motion.div
-                key={key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={timeLeft?.[key]}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-5xl md:text-6xl font-bold text-gray-800 notranslate"
-                  >
-                    {timeLeft?.[key]}
-                  </motion.p>
-                </AnimatePresence>
-
-                <p className="uppercase tracking-widest text-sm text-gray-600 mt-2">
-                  {unit.title}
-                </p>
-              </motion.div>
-            );
-          })}
+              <p className="mt-2 font-sans text-xs tracking-[0.2em] text-ink-muted uppercase md:text-sm">
+                {unit.title}
+              </p>
+            </div>
+          ))}
         </div>
 
-        {/* Lottie */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="w-full flex justify-center items-center py-10"
-        >
-          <lottie-player
-            src="/animations/catAnimation.json"
-            background="transparent"
-            speed="1"
-            loop
-            autoplay
-            style={{ width: "250px", height: "250px" }}
-          />
-        </motion.div>
-      </motion.div>
+        <div className="relative flex w-full items-center justify-center pt-8">
+          <Lottie src="/animations/catAnimation.json" />
+        </div>
+      </Reveal>
     </section>
   );
 }
