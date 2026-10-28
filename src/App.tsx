@@ -8,11 +8,11 @@ import Gallery from "./components/gallery/gallery";
 import Header from "./components/header/header";
 import Landing from "./components/landing/landing";
 import Story from "./components/story/story";
-import Venue from "./components/venue/venue";
 import type { SectionKey } from "./config";
 import { cn } from "./lib/utils";
 
 // import Events from "./components/events/events";
+// import Venue from "./components/venue/venue";
 // import Invitation from "./components/Invitation/invitation";
 // import WeddingQRCard from "./components/weddingQr/weddingQr";
 // import Family from "./components/family/family";
@@ -89,9 +89,6 @@ export default function App() {
             </div>
             <div id="story" className={SNAP_SECTION}>
               <Story />
-            </div>
-            <div id="venue" className={SNAP_SECTION}>
-              <Venue />
             </div>
             <div id="gallery" className={SNAP_SECTION}>
               <Gallery />

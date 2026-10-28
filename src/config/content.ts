@@ -23,7 +23,6 @@ export const content = {
   nav: [
     { title: "Home", key: "home" },
     { title: "Story", key: "story" },
-    { title: "Venue", key: "venue" },
     { title: "Gallery", key: "gallery" },
   ] satisfies { title: string; key: SectionKey }[],
 
